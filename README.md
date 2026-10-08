@@ -1,4 +1,4 @@
-# 🎨 Gemini Desktop Blender Bridge (Pi Agent Skill)
+# Gemini Desktop Blender Bridge (Pi Agent Skill)
 
 [![Blender](https://img.shields.io/badge/Blender-4.x%20%7C%205.x-E87D0D?logo=blender&logoColor=white)](https://www.blender.org/)
 [![Pi Agent](https://img.shields.io/badge/Agent-Pi%20Coding%20Agent-6C5CE7)](https://github.com/earendil-works/pi)
@@ -11,7 +11,7 @@ Cukup minta di terminal Pi seperti: *"Buatkan mobil low-poly warna merah di Blen
 
 ---
 
-## 🏛️ Arsitektur Sistem (System Architecture)
+## Arsitektur Sistem (System Architecture)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -41,7 +41,7 @@ Cukup minta di terminal Pi seperti: *"Buatkan mobil low-poly warna merah di Blen
 │       ├──> Executes bpy script (Mesh, Materials, Modifiers)     │
 │       └──> Triggers 3D Viewport Redraw (Immediate Visual Update)│
 │                                                                 │
-│   🎉 3D Asset langsung muncul di layar Anda!                    │
+│   3D Asset langsung muncul di layar Anda!                       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -51,17 +51,17 @@ Cukup minta di terminal Pi seperti: *"Buatkan mobil low-poly warna merah di Blen
 
 ---
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
-- ⚡ **Real-time Live Sync:** Objek langsung terbuat di Viewport tanpa perlu me-reload file.
-- 🧱 **Dukungan PBR Material & Modifier:** Agent otomatis mengatur *Principled BSDF*, warna, roughness, metallic, bevel, dan subsurf.
-- 📦 **Export Langsung ke `.glb`:** Bisa minta agent untuk langsung mengekspor hasil ke format binary 3D `.glb` / `.gltf`.
-- 🔄 **Multi-Platform & WSL2 Ready:** Berjalan lancar di Linux, macOS, Windows native, serta WSL2 -> Windows Desktop.
-- 🛡️ **Thread-Safe:** Eksekusi kode dilakukan di thread utama Blender (`bpy.app.timers`) untuk mencegah crash atau context error.
+- **Real-time Live Sync:** Objek langsung terbuat di Viewport tanpa perlu me-reload file.
+- **Dukungan PBR Material & Modifier:** Agent otomatis mengatur *Principled BSDF*, warna, roughness, metallic, bevel, dan subsurf.
+- **Export Langsung ke `.glb`:** Bisa minta agent untuk langsung mengekspor hasil ke format binary 3D `.glb` / `.gltf`.
+- **Multi-Platform & WSL2 Ready:** Berjalan lancar di Linux, macOS, Windows native, serta WSL2 -> Windows Desktop.
+- **Thread-Safe:** Eksekusi kode dilakukan di thread utama Blender (`bpy.app.timers`) untuk mencegah crash atau context error.
 
 ---
 
-## 📂 Struktur Repositori
+## Struktur Repositori
 
 ```bash
 gemini-desktop-bridge-skill/
@@ -81,7 +81,7 @@ gemini-desktop-bridge-skill/
 
 ---
 
-## 🛠️ Panduan Instalasi & Penggunaan
+## Panduan Instalasi & Penggunaan
 
 ### Langkah 1: Pasang Skill di Pi Coding Agent
 Jalankan perintah ini di terminal Anda:
@@ -102,7 +102,7 @@ cd gemini-desktop-bridge-skill
 4. Klik tombol **Run Script** (atau tekan `Alt + P`).
 5. Di tab 3D Viewport (tekan tombol `N` untuk membuka sidebar), Anda juga akan melihat tab baru **Pi Bridge** dengan status:
    ```
-   🟢 Status: Active (Port 9876)
+   Status: Active (Port 9876)
    ```
 
 ---
@@ -114,11 +114,11 @@ Sekarang Anda cukup berbicara dengan Pi di terminal:
 > 
 > **Pi:** *(Mengenerate kode Python `bpy` dan otomatis mengirimkannya ke Blender)*
 > 
-> **Hasil:** Meja kayu langsung muncul di layar Blender Anda! ✨
+> **Hasil:** Meja kayu langsung muncul di layar Blender Anda!
 
 ---
 
-## 💬 Contoh Perintah yang Bisa Anda Minta
+## Contoh Perintah yang Bisa Anda Minta
 
 - *"Buatkan cangkir kopi keramik dengan uap dan gagang"*
 - *"Buatkan mobil sport low-poly dengan roda hitam dan bodi merah metallic"*
@@ -128,7 +128,7 @@ Sekarang Anda cukup berbicara dengan Pi di terminal:
 
 ---
 
-## 🧪 Tes Manual (CLI Test)
+## Tes Manual (CLI Test)
 
 Jika ingin menguji koneksi tanpa chat ke agent:
 
@@ -145,7 +145,7 @@ python3 skill/scripts/send_to_blender.py --file examples/02_lowpoly_car.py
 
 ---
 
-## 🤝 Kontribusi & Lisensi
+## Kontribusi & Lisensi
 
-Dibuat dengan ❤️ oleh [Fidel Cristopher](https://github.com/FidelCristopher).
+Dibuat oleh [Fidel Cristopher](https://github.com/FidelCristopher).
 Proyek ini dilisensikan di bawah [MIT License](LICENSE). Pull Request dan saran sangat dipersilakan!

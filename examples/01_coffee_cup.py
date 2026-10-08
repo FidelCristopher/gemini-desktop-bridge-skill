@@ -56,4 +56,4 @@ coffee = bpy.context.active_object
 coffee.name = "CoffeeLiquid"
 coffee.data.materials.append(coffee_mat)
 
-print("☕ Coffee cup created successfully!")
+print("Coffee cup created successfully!")

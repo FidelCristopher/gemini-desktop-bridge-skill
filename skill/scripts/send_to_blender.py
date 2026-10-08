@@ -150,14 +150,14 @@ def main():
             try:
                 req = urllib.request.Request(f"http://{host}:{args.port}/status")
                 with urllib.request.urlopen(req, timeout=2) as resp:
-                    print(f"🟢 Connected to Blender on {host}:{args.port} -> {resp.read().decode('utf-8')}")
+                    print(f"[OK] Connected to Blender on {host}:{args.port} -> {resp.read().decode('utf-8')}")
                     return 0
             except Exception:
                 pass
-        print("🔴 Blender HTTP bridge is not responding. Checking shared directories...")
+        print("[INFO] Blender HTTP bridge is not responding. Checking shared directories...")
         for d in find_bridge_dirs():
             if d.exists():
-                print(f"📁 Shared directory found: {d}")
+                print(f"[INFO] Shared directory found: {d}")
         return 1
 
     code = ""
@@ -182,7 +182,7 @@ def main():
         success, result = try_file_send(code)
 
     if not success:
-        print("❌ Error: Failed to communicate with Blender.", file=sys.stderr)
+        print("[ERROR] Failed to communicate with Blender.", file=sys.stderr)
         if result and "error" in result:
             print(f"Detail: {result['error']}", file=sys.stderr)
         print("\nPastikan script 'blender_bridge.py' sudah di-run di Blender Desktop!", file=sys.stderr)
@@ -193,10 +193,10 @@ def main():
         print(result["output"].strip())
     
     if result.get("status") == "error":
-        print("❌ Blender Execution Error:\n" + result.get("error", ""), file=sys.stderr)
+        print("[ERROR] Blender Execution Error:\n" + result.get("error", ""), file=sys.stderr)
         sys.exit(2)
     else:
-        print("✅ Successfully executed in Blender!")
+        print("[OK] Successfully executed in Blender!")
         sys.exit(0)
 
 if __name__ == "__main__":

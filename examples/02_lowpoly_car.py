@@ -68,4 +68,4 @@ for y_pos in (0.6, -0.6):
     light.name = f"Headlight_{y_pos}"
     light.data.materials.append(light_mat)
 
-print("🚗 Low-poly car created successfully!")
+print("Low-poly car created successfully!")

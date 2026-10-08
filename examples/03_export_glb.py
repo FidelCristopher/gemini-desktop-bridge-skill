@@ -39,4 +39,4 @@ bpy.ops.export_scene.gltf(
     use_selection=False
 )
 
-print(f"✨ Model created and exported to GLB: {export_path}")
+print(f"Model created and exported to GLB: {export_path}")

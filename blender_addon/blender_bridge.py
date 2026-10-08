@@ -206,13 +206,13 @@ def start_bridge(port=DEFAULT_PORT):
         server_thread = threading.Thread(target=server_instance.serve_forever, daemon=True)
         server_thread.start()
         print(f"==================================================")
-        print(f"🟢 [Pi Bridge] Active & Listening!")
-        print(f"👉 HTTP Endpoint: http://localhost:{port}/run")
-        print(f"👉 File Watcher: {BRIDGE_DIR}")
+        print(f"[Pi Bridge] Active & Listening!")
+        print(f"HTTP Endpoint: http://localhost:{port}/run")
+        print(f"File Watcher: {BRIDGE_DIR}")
         print(f"==================================================")
     except Exception as e:
-        print(f"⚠️ [Pi Bridge] HTTP Server could not bind port {port}: {e}")
-        print(f"📁 [Pi Bridge] File Watcher fallback remains ACTIVE on {BRIDGE_DIR}")
+        print(f"[Pi Bridge] WARNING: HTTP Server could not bind port {port}: {e}")
+        print(f"[Pi Bridge] File Watcher fallback remains ACTIVE on {BRIDGE_DIR}")
 
     # Register main thread timer
     if not bpy.app.timers.is_registered(bridge_timer_loop):
@@ -232,7 +232,7 @@ def stop_bridge():
 
     if bpy.app.timers.is_registered(bridge_timer_loop):
         bpy.app.timers.unregister(bridge_timer_loop)
-    print("🔴 [Pi Bridge] Stopped.")
+    print("[Pi Bridge] Stopped.")
 
 # UI Panel inside 3D Viewport Sidebar (N-Panel)
 class VIEW3D_PT_pi_bridge(bpy.types.Panel):
@@ -246,11 +246,11 @@ class VIEW3D_PT_pi_bridge(bpy.types.Panel):
         layout = self.layout
         global is_running
         if is_running:
-            layout.label(text="Status: 🟢 Active (Port 9876)", icon='CHECKMARK')
-            layout.operator("wm.pi_bridge_stop", text="Stop Bridge", icon='PAUSE')
+            layout.label(text="Status: Active (Port 9876)")
+            layout.operator("wm.pi_bridge_stop", text="Stop Bridge")
         else:
-            layout.label(text="Status: 🔴 Inactive", icon='X')
-            layout.operator("wm.pi_bridge_start", text="Start Bridge", icon='PLAY')
+            layout.label(text="Status: Inactive")
+            layout.operator("wm.pi_bridge_start", text="Start Bridge")
 
 class WM_OT_pi_bridge_start(bpy.types.Operator):
     bl_idname = "wm.pi_bridge_start"
