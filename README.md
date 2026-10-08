@@ -4,19 +4,19 @@
 [![Pi Agent](https://img.shields.io/badge/Agent-Pi%20Coding%20Agent-6C5CE7)](https://github.com/earendil-works/pi)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://python.org)
 
-Jembatan dua arah (bidirectional bridge) real-time antara **Pi Terminal Coding Agent (didukung Gemini / LLM)** dan aplikasi **Blender Desktop**.
+A real-time bidirectional bridge connecting the **Pi Terminal Coding Agent (powered by Gemini / LLM)** directly to an active **Blender Desktop** application.
 
-Cukup minta di terminal Pi seperti: *"Buatkan mobil low-poly warna merah di Blender"*, dan model 3D akan langsung muncul dan ter-update di 3D Viewport Blender Anda seketika.
+Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red sports car in Blender"*, and the 3D model will be generated and updated instantly in your Blender 3D Viewport.
 
 ---
 
-## Arsitektur Sistem (System Architecture)
+## System Architecture
 
 ```
 +-----------------------------------------------------------------+
 |                    Terminal / Pi Coding Agent                   |
 |                                                                 |
-|   User Prompt: "Buatkan kursi kayu di Blender"                  |
+|   User Prompt: "Create a wooden chair in Blender"               |
 |       |                                                         |
 |       v                                                         |
 |   [Gemini / LLM Agent] ----> Generates bpy Python Script        |
@@ -42,112 +42,112 @@ Cukup minta di terminal Pi seperti: *"Buatkan mobil low-poly warna merah di Blen
 |       +---> Executes bpy script (Mesh, Materials, Modifiers)    |
 |       +---> Triggers 3D Viewport Redraw                         |
 |                                                                 |
-|   3D Asset langsung muncul di Viewport Blender Anda!            |
+|   3D Asset appears live in your Blender Viewport!               |
 +-----------------------------------------------------------------+
 ```
 
-### Keunggulan Arsitektur Dual-Transport:
-1. **HTTP REST (Fast):** Mengirim kode secara instan via endpoint HTTP lokal (`http://localhost:9876/execute`).
-2. **File Watcher (Zero-Config Fallback):** Sangat ideal untuk pengguna WSL2 ke Windows Desktop di mana firewall sering memblokir port jaringan. Script otomatis menulis ke shared directory `~/.blender_bridge/task.py` yang dipantau Blender setiap 100ms.
+### Key Advantages of the Dual-Transport Architecture:
+1. **HTTP REST (Fast):** Sends code directly over a local HTTP endpoint (`http://localhost:9876/execute`) for immediate response.
+2. **Shared File Watcher (Zero-Config Fallback):** Ideal for WSL2 to Windows Desktop workflows where firewalls or NAT often block network ports. The client writes to `~/.blender_bridge/task.py`, which Blender polls and executes every 100ms.
 
 ---
 
-## Fitur Utama
+## Features
 
-- **Real-time Live Sync:** Objek langsung terbuat di Viewport tanpa perlu me-reload file atau restart Blender.
-- **Dukungan PBR Material & Modifier:** Agent otomatis mengatur *Principled BSDF*, warna, roughness, metallic, bevel, dan subsurf.
-- **Export Langsung ke .glb:** Bisa minta agent untuk langsung mengekspor hasil ke format binary 3D `.glb` / `.gltf`.
-- **Multi-Platform & WSL2 Ready:** Berjalan lancar di Linux, macOS, Windows native, serta WSL2 -> Windows Desktop.
-- **Thread-Safe:** Eksekusi kode dilakukan di thread utama Blender (`bpy.app.timers`) untuk mencegah crash atau context error.
+- **Real-Time Viewport Sync:** Meshes, lights, and materials appear immediately without saving or reloading files.
+- **PBR Materials & Modifiers:** Automatically configures *Principled BSDF*, Base Color, Roughness, Metallic, Bevel, and Subdivision Surface modifiers.
+- **Direct GLB Export:** Supports exporting generated 3D scenes directly to standard `.glb` / `.gltf` binary formats.
+- **Cross-Platform & WSL2 Ready:** Seamlessly works on native Linux, macOS, native Windows, and WSL2 talking to Windows desktop.
+- **Thread-Safe Execution:** Scripts run on Blender's main event loop using `bpy.app.timers` to eliminate context errors and crashes.
 
 ---
 
-## Struktur Repositori
+## Repository Structure
 
 ```bash
 gemini-desktop-bridge-skill/
-├── README.md                      # Dokumentasi & panduan
-├── blender_bridge.py              # Script bridge utama yang dijalankan di Blender
-├── install.sh                     # Script installer 1-klik untuk Pi Agent
+├── README.md                      # Documentation and usage guide
+├── blender_bridge.py              # Main bridge script executed in Blender
+├── install.sh                     # One-click installer for Pi Agent
 ├── blender_addon/
-│   └── blender_bridge.py          # Salinan script bridge untuk addon
+│   └── blender_bridge.py          # Add-on formatted bridge script
 ├── skill/
-│   ├── SKILL.md                   # Definisi Skill untuk Pi Coding Agent
+│   ├── SKILL.md                   # Skill prompt and instructions for Pi Agent
 │   └── scripts/
-│       └── send_to_blender.py     # Script pengirim (HTTP + File Watcher)
+│       └── send_to_blender.py     # Sender CLI tool (HTTP + File Watcher)
 └── examples/
-    ├── 01_coffee_cup.py           # Contoh: Cangkir kopi prosedural
-    ├── 02_lowpoly_car.py          # Contoh: Mobil low-poly dengan roda
-    └── 03_export_glb.py           # Contoh: Objek kristal + export .glb
+    ├── 01_coffee_cup.py           # Example: Procedural ceramic coffee cup
+    ├── 02_lowpoly_car.py          # Example: Low-poly vehicle with wheels
+    └── 03_export_glb.py           # Example: Glowing crystal + GLB export
 ```
 
 ---
 
-## Panduan Instalasi & Penggunaan
+## Installation & Setup
 
-### Langkah 1: Pasang Skill di Pi Coding Agent
-Jalankan perintah ini di terminal Anda:
+### Step 1: Install the Skill into Pi Coding Agent
+Run the installation script in your terminal:
 
 ```bash
 git clone https://github.com/FidelCristopher/gemini-desktop-bridge-skill.git
 cd gemini-desktop-bridge-skill
 ./install.sh
 ```
-*Script ini akan otomatis meng-copy skill ke `~/.pi/agent/skills/blender-bridge/`.*
+*This installs the skill permanently to `~/.pi/agent/skills/blender-bridge/` for all future sessions.*
 
 ---
 
-### Langkah 2: Jalankan Bridge di Blender Desktop
-1. Buka aplikasi **Blender** di desktop Anda.
-2. Buka tab **Scripting** (di menu atas).
-3. Klik tombol **Open**, lalu pilih file `blender_bridge.py` di folder repositori ini.
-4. Klik tombol **Run Script** (atau tekan `Alt + P`).
-5. Di 3D Viewport (tekan tombol `N` untuk membuka sidebar), Anda akan melihat tab **Pi Bridge** dengan status:
+### Step 2: Run the Bridge in Blender Desktop
+1. Open **Blender** on your desktop.
+2. Switch to the **Scripting** tab at the top.
+3. Click **Open**, and select `blender_bridge.py` from this repository directory.
+4. Click **Run Script** (or press `Alt + P`).
+5. In the 3D Viewport (press `N` to open the sidebar), you will see the **Pi Bridge** panel displaying:
    ```
    Status: Active (Port 9876)
    ```
 
 ---
 
-### Langkah 3: Gunakan di Terminal Pi
-Sekarang Anda cukup berbicara dengan Pi di terminal:
+### Step 3: Prompt the Pi Agent
+Interact naturally with the Pi Agent in your terminal:
 
-> **User:** *"Tolong buatkan meja kayu low-poly lengkap dengan 4 kaki di Blender"*
+> **User:** *"Create a low-poly wooden dining table with four legs in Blender"*
 > 
-> **Pi:** *(Mengenerate kode Python bpy dan otomatis mengirimkannya ke Blender)*
+> **Pi Agent:** *(Generates the bpy script and dispatches it to Blender)*
 > 
-> **Hasil:** Meja kayu langsung muncul di layar Blender Anda!
+> **Result:** The 3D model appears instantly in your Blender viewport!
 
 ---
 
-## Contoh Perintah yang Bisa Anda Minta
+## Example Prompts
 
-- *"Buatkan cangkir kopi keramik dengan uap dan gagang"*
-- *"Buatkan mobil sport low-poly dengan roda hitam dan bodi merah metallic"*
-- *"Buatkan pohon low-poly dengan daun berbentuk icosohedron"*
-- *"Hapus semua objek di scene lalu buatkan donat dengan icing warna pink"*
-- *"Buatkan pedang sci-fi dengan material neon emission dan ekspor ke format .glb"*
+- *"Create a ceramic coffee cup with steam and a handle"*
+- *"Build a low-poly sports car with silver rims and a metallic red body"*
+- *"Generate a low-poly pine tree with an icosphere foliage canopy"*
+- *"Clear the scene and create a frosted pink donut with sprinkles"*
+- *"Model a sci-fi energy blade with neon blue emission and export it to a .glb file"*
 
 ---
 
-## Tes Manual (CLI Test)
+## Manual CLI Testing
 
-Jika ingin menguji koneksi tanpa chat ke agent:
+You can test the connection manually without prompting the agent:
 
 ```bash
-# Cek status koneksi Blender
+# Check Blender connection status
 python3 skill/scripts/send_to_blender.py --status
 
-# Kirim contoh cangkir kopi ke Blender
+# Send the procedural coffee cup example
 python3 skill/scripts/send_to_blender.py --file examples/01_coffee_cup.py
 
-# Kirim contoh mobil low-poly ke Blender
+# Send the low-poly car example
 python3 skill/scripts/send_to_blender.py --file examples/02_lowpoly_car.py
 ```
 
 ---
 
-## Kontribusi
+## Contributions
 
-Dibuat oleh [Fidel Cristopher](https://github.com/FidelCristopher).
-Pull Request dan saran sangat dipersilakan!
+Created by [Fidel Cristopher](https://github.com/FidelCristopher).
+Issues, feature requests, and pull requests are welcome!

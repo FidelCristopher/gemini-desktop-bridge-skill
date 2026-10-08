@@ -185,7 +185,7 @@ def main():
         print("[ERROR] Failed to communicate with Blender.", file=sys.stderr)
         if result and "error" in result:
             print(f"Detail: {result['error']}", file=sys.stderr)
-        print("\nPastikan script 'blender_bridge.py' sudah di-run di Blender Desktop!", file=sys.stderr)
+        print("\nPlease ensure 'blender_bridge.py' is running inside Blender Desktop!", file=sys.stderr)
         sys.exit(1)
 
     # Print output
