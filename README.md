@@ -84,7 +84,9 @@ gemini-desktop-bridge-skill/
     ├── 02_lowpoly_car.py          # Example: Low-poly vehicle with wheels
     ├── 03_export_glb.py           # Example: Glowing crystal + GLB export
     └── recipes/
-        └── 04_iced_latte_glass_lathe.py  # Verified Recipe: Seamless watertight glass & beverage lathe
+        ├── 04_iced_latte_glass_lathe.py        # Verified Recipe: Seamless watertight glass & beverage lathe
+        └── 05_thermoformed_pet_plastic_cup.py  # Verified Recipe: High-precision thermoformed disposable PET plastic cup
+
 ```
 
 ---

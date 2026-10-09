@@ -134,3 +134,61 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - **Fill Area Light:** Soft cool fill ($0.95, 0.97, 1.0$), Energy $2.8\text{ W}$, Size $0.45\text{ m}$, Position $(0.24, -0.16, 0.22)\text{ m}$.
   - **Rim Area Light:** Warm rim highlight ($1.0, 0.96, 0.90$), Energy $5.2\text{ W}$, Size $0.30\text{ m}$, Position $(0.0, 0.26, 0.26)\text{ m}$.
 - **Color Management:** Filmic View Transform with Medium High Contrast for authentic ceramic dynamic range.
+
+---
+
+## Asset: Thermoformed Disposable PET Plastic Cup (16 oz)
+**Timestamp:** 2026-10-09 17:03:27  
+**Category:** Beverage Packaging & Disposable Ware  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/plastic-cup.png`)
+
+### 1. Geometric Architecture & Dimensions
+- **Anatomy & Dimensions:**
+  - Total Height: $124.9\text{ mm}$ ($0.1249\text{ m}$)
+  - Top Rim Outer Diameter: $98.8\text{ mm}$ (Radius $49.4\text{ mm}$)
+  - Base Contact Diameter: $61.6\text{ mm}$ (Radius $30.8\text{ mm}$)
+  - Aspect Ratio (Height / Rim Width): $\approx 1.26$
+  - Wall Thickness: Uniform $0.55\text{ mm}$ ($0.00055\text{ m}$) thermoformed polymer shell.
+- **Thermoformed Structural Profile:**
+  - **Recessed Base Floor & Injection Sprue:** Elevated floor disc ($Z = 3.4\text{ mm}$ to $5.2\text{ mm}$) with a central push-up dimple mark and concentric circular stiffening bead ($R = 17.5\text{ mm}$ to $19.5\text{ mm}$) to resist hydro-static pressure.
+  - **Foot Contact Ring & Skirt:** Smooth transition to flat contact circle ($Z = 0.0\text{ mm}, R = 30.8\text{ mm}$) ascending into an outer vertical kick-up skirt ($Z = 0.0$ to $10.2\text{ mm}$).
+  - **Stacking Recess Crease:** Inward indentation step ($Z = 10.2$ to $12.6\text{ mm}$, inward radius decrease to $R = 30.6\text{ mm}$) providing vertical stacking clearance for nested cups.
+  - **Conical Sidewall:** Linear draft angle taper ($R = 31.3\text{ mm}$ at $Z = 14.0\text{ mm}$ to $R = 41.6\text{ mm}$ at $Z = 112.0\text{ mm}$).
+  - **Upper Stacking Indexing Bead:** Circumferential outward rib bead ($R = 43.2\text{ mm}$ at $Z = 117.8\text{ mm}$) acting as an indexing stop for takeaway lids and nested packaging.
+  - **Toroidal Rolled Rim Lip:** Fully curled bead crest curving smoothly upward, outward to $R = 49.0\text{ mm}$ at $Z = 123.5\text{ mm}$, tucking downward to $Z = 121.6\text{ mm}$ and turning back under to seal the rim lip.
+- **Topology & Mesh Generation:**
+  - Continuous closed 2D meridian contour (outer shell $\to$ rolled lip $\to$ inward normal-offset inner wall $\to$ inner base floor).
+  - Revolved with $84$ radial segments around the $Z$-axis into a contiguous quad grid mesh (546 meridian steps $\times$ 84 radial rings $\approx$ 45,000 polygons post-subdivision).
+  - Watertight, 100% manifold, double-walled topology eliminating `Solidify` modifier normal-division explosions on polar fans.
+  - Modifier Stack: Subdivision Surface (`Subsurf`) Level 1 Viewport / Level 2 Render.
+
+### 2. Optical Plastic PBR Material Architecture
+- **Material Identity:** `PET_Clear_Plastic`
+- **PBR & Shader Nodes:**
+  - **Principled BSDF:**
+    - Roughness: $0.015$ (high-gloss optical clarity).
+    - Refractive Index (IOR): $1.540$ (physically verified PET polymer refractive index).
+    - Specular IOR Level: $0.95$ (accentuated surface Fresnel highlights).
+  - **Fresnel Silhouette Definition (`Layer Weight` Network):**
+    - `Layer Weight (Facing)` node with Blend factor $0.22$.
+    - **Base Color Ramp:** Transitions smoothly from crisp clear neutral (`RGB: 0.98, 0.99, 1.0`) at normal angles ($Fac > 0.30$) to dark slate refraction tone (`RGB: 0.20, 0.24, 0.28`) at glancing silhouette edges ($Fac = 0.0$).
+    - **Alpha Ramp:** Maps facing normals to high transparency ($\text{Alpha} \approx 0.05$) while building opacity to $\text{Alpha} \approx 0.92$ along grazing edges.
+  - **Viewport Transparency Settings:**
+    - `mat.blend_method = 'BLEND'`
+    - `mat.show_transparent_back = True`
+    - `mat.use_backface_culling = False`
+    - Delivers noise-free, crystal-clear real-time transmission showing internal base geometry, rear wall depth, and crisp rim highlights.
+
+### 3. Studio Lighting Rig & Viewport Staging
+- **Camera Staging:**
+  - Focal Length: $78.0\text{ mm}$ (product photography telephoto compression).
+  - Location: $(0.0, -0.42, 0.155)\text{ m}$, pointing directly at cup geometric center $(0.0, 0.0, 0.065)\text{ m}$.
+  - Tilt: $\approx 12.0^\circ$ downward pitch, framing the elliptical top rim opening and revealing the depth of the recessed bottom floor.
+- **Studio 3-Point Illumination:**
+  - **Key Softbox:** Warm white ($1.0, 0.98, 0.95$), Energy $10.0\text{ W}$, Size $0.18 \times 0.25\text{ m}$, Position $(-0.20, -0.25, 0.22)\text{ m}$.
+  - **Fill Softbox:** Soft cool fill ($0.94, 0.97, 1.0$), Energy $6.0\text{ W}$, Size $0.18 \times 0.25\text{ m}$, Position $(0.20, -0.25, 0.22)\text{ m}$.
+  - **Top Rim Light:** Neutral white ($1.0, 1.0, 1.0$), Energy $8.0\text{ W}$, Size $0.20\text{ m}$, Position $(0.0, -0.05, 0.28)\text{ m}$.
+- **Viewport Shading Configuration:**
+  - Material Preview with Blender default neutral dark-grey theme background (`space.shading.background_type = 'THEME'`).
+  - Active scene lights enabled (`use_scene_lights = True`) to illuminate reflections and rim highlights.
+
