@@ -178,3 +178,10 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Enable EEVEE Real-Time Raytracing:** In Blender 5.x / 4.2+, enable `scene.eevee.use_raytracing = True`, `mat.use_raytrace_refraction = True`, and set `refraction_depth = 0.04`.
   3. **Studio World Environment:** Provide an active ambient World background (`Strength: ~0.85`) so glass surfaces have environment light to reflect, and enable `use_scene_lights = True` and `use_scene_world = True` in 3D viewport shading.
 
+### 8. Handling 3D Scan / Extracted Assets (Open Base Hole Repair)
+- **Problem:** 3D scan or photogrammetry assets (e.g. models captured sitting on a tabletop) often have open, unmeshed boundary seams at the bottom. When rendered with an opaque material, the missing base is hidden; however, applying a transparent optical glass shader immediately exposes the open void, making the bottom of the glass look hollow/broken.
+- **Rule:**
+  1. **Inspect for Open Boundaries:** Whenever assigning transparent glass materials to imported assets, verify whether the mesh is open at the base (`is_boundary` edges).
+  2. **Construct Solid Beveled Base:** Seal open bottom loops by creating a solid beveled glass bottom disc matching the base diameter and joining it directly into the glass mesh to simulate real thick tumbler glassware.
+  3. **Avoid Backface Clipping:** Set glass materials to `blend_method = 'HASHED'` and ensure backface culling is disabled (`show_transparent_back = True`) to maintain full depth perception and eliminate angle-dependent disappearing faces.
+
