@@ -199,3 +199,9 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Tailored Outer Glass Shell:** Build a dedicated, contiguous revolved glass tumbler mesh enveloping the drink core. Provide a thick solid crystal bottom base extending below the drink floor and uniform wall thickness with a rounded top rim lip.
   3. **Optical Refraction Layer:** Apply the crystal glass shader (`Transmission: 1.0`, `Roughness: 0.02`, `IOR: 1.50`, `Alpha: 0.18`, Raytrace Refraction enabled) to the outer shell. This achieves the best of both worlds: photorealistic baked 4K beverage textures inside, encased within a physically accurate, thick crystal glass tumbler that casts crisp specular highlights and refractions in real-time.
 
+### 11. Preserving Standard Viewport Background (Avoiding Blinding White Viewport)
+- **Problem:** Toggling `space.shading.use_scene_world = True` with a bright environment background color replaces Blender's default neutral grey theme background with a glaring white canvas.
+- **Rule:**
+  1. **Preserve Theme Background:** In Material Preview shading, keep `space.shading.use_scene_world = False` and ensure `space.shading.background_type = 'THEME'`. This lets Blender use its built-in studio reflection environment while keeping the comfortable neutral dark-grey viewport background.
+  2. **Dark Neutral Scene World:** When custom scene world shaders are defined, set the background color to a dark studio tone (`Color: (0.08, 0.08, 0.09)`) instead of bright white, preventing eye strain and overexposed viewport backgrounds.
+
