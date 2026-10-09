@@ -162,6 +162,16 @@ bpy.context.scene.render.resolution_y = 2048
 ```
 Never generate low-resolution 512x512 or 800x800 renders. High-resolution 2K guarantees that fine procedural textures, glaze gradients, micro-bumps, and iron flecks are crisply resolved.
 
+### 7. Strict Single GLB Output File Rule (Never Generate Duplicate/Alias Files)
+- **Problem:** Exporting redundant duplicate filenames (e.g., exporting both `matcha-powder-chashaku.glb` and `chashaku.glb`, or `glass-cup.glb` and `plastic-cup.glb`) creates confusion, clutters user directories, and wastes disk space.
+- **Rule:**
+  1. **Strictly ONE File:** When exporting finished 3D assets to `.glb`, **ALWAYS generate exactly ONE single `.glb` file**.
+  2. **FORBIDDEN:** Under no circumstances should the agent create multiple duplicate or alias files for the same model.
+  3. **Naming Convention:**
+     - If the asset was generated from an image reference (e.g. `C:\Users\Pongo\Downloads\foo-bar.png`), the output `.glb` must match the reference base name: `C:\Users\Pongo\Downloads\foo-bar.glb`.
+     - If the asset was generated from a text prompt (e.g. "katana sword"), use the single clean canonical snake_case or kebab-case name: `C:\Users\Pongo\Downloads\katana_sword.glb`.
+
+
 
 ## Continuous Learning & Revision Recording Scheme
 
