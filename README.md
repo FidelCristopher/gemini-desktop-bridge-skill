@@ -116,13 +116,20 @@ cd gemini-desktop-bridge-skill
 ---
 
 ### Step 3: Prompt the Pi Agent
-Interact naturally with the Pi Agent in your terminal:
+Interact naturally with the Pi Agent in your terminal. Whenever you want to generate a 3D asset, the agent will present 3 flexible input methods:
+1. **Pick Image from Local (File Explorer GUI):** Opens a native Windows dialog window to browse and click your image.
+2. **Specify Image File Path:** Provide a direct image path (e.g. `C:\Users\Pongo\Pictures\chair.png`).
+3. **Text Prompt Description:** Describe the 3D model directly using text.
 
-> **User:** *"Create a low-poly wooden dining table with four legs in Blender"*
+> **User:** *"I want to create a 3D model in Blender"*
 > 
-> **Pi Agent:** *(Generates the bpy script and dispatches it to Blender)*
+> **Pi Agent:**
+> *"How would you like to provide the reference?*
+> 1. Pick an image from Local (File Explorer dialog)
+> 2. Specify an image file path
+> 3. Describe using a text prompt"
 > 
-> **Result:** The 3D model appears instantly in your Blender viewport!
+> **Result:** The 3D model appears instantly in your Blender viewport and logs its specs to `design.md`!
 
 ---
 

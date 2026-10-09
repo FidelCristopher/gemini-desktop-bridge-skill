@@ -19,13 +19,16 @@ This skill allows the agent to generate 3D models, procedural assets, PBR materi
 
 Whenever the user invokes the skill or asks to generate 3D assets in Blender:
 
-1. **Reference Input Options:**
-   If the user asks to model from an image or if they want to provide an image reference:
-   Offer or execute one of these input methods:
-   - **File Explorer GUI Dialog:** Run `python3 <skill_dir>/scripts/pick_image.py --dialog` to open a native Windows/system file selector window where the user can click and select an image file.
-   - **System Clipboard:** Run `python3 <skill_dir>/scripts/pick_image.py --clipboard` if the user copied an image or took a screenshot (e.g., Win + Shift + S).
-   - **Direct File Path:** If the user already provided an image path, proceed directly.
-   - **Direct Text Prompt:** If the user provided a text description, proceed directly to modeling.
+1. **Mandatory Input Triage (Always Offer the 3 Input Methods):**
+   Whenever the user invokes this skill or asks to create/generate a 3D asset in Blender (unless they already provided the exact image path or full text specification upfront in their prompt), **ALWAYS ask the user to choose from these 3 options**:
+   - **1. Pick Image from Local (File Explorer GUI):** The agent executes `python3 <skill_dir>/scripts/pick_image.py --dialog` to launch a native Windows/system File Explorer dialog so the user can easily click and select an image file with their mouse.
+   - **2. Specify Image File Path:** The user provides a direct file path to an image file (e.g., `C:\Users\Pongo\Pictures\reference.png`).
+   - **3. Text Prompt Description:** The user describes the desired 3D object directly using natural language text prompts (e.g., "Create a low-poly medieval chest").
+
+   **Handling the Selection:**
+   - If **Option 1** is selected: execute `pick_image.py --dialog`, capture the returned image path, and use the `read` tool to inspect the image.
+   - If **Option 2** is selected: take the user-provided file path and use the `read` tool to inspect the image.
+   - If **Option 3** is selected: proceed directly to modeling based on the user's text description.
 
 2. **Image Inspection & Deconstruction (When Image is Provided):**
    - Use the `read` tool on the image path returned by `pick_image.py` or provided by user.
