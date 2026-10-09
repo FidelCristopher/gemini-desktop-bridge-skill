@@ -121,8 +121,11 @@ Whenever the user requests a correction, refinement, or reports an issue/artifac
 
 1. **Diagnose Root Cause:** Determine why the visual artifact occurred (e.g., modifier collapse, lighting, missing refraction, node type mismatches).
 2. **Apply Live Correction:** Generate the corrected `bpy` script, test it, and update Blender desktop immediately.
-3. **Record Lesson Learned:** Automatically extract the generalized rule and append it to the `## Lessons Learned & Best Practices (Memory Bank)` section of this `SKILL.md`.
-4. **Save Reusable Recipe:** If the object represents a distinct category (e.g., drink container, vehicle, procedural architecture), save the verified script into `examples/recipes/`.
+3. **Record Lesson Learned (Strict English Auto-Translation):**
+   - Automatically extract the generalized rule, technical constraint, and modeling best practices.
+   - **MANDATORY AUTO-TRANSLATION TO ENGLISH:** Regardless of the language used by the user in the prompt or conversation (e.g., Indonesian, Japanese, etc.), **ALWAYS automatically translate, synthesize, and record every new lesson, guideline, and code comment strictly into clear, professional technical English.** This guarantees that `SKILL.md` remains 100% globally consistent and language-standardized.
+   - Append the newly synthesized rule to the `## Lessons Learned & Best Practices (Memory Bank)` section below.
+4. **Save Reusable Recipe:** If the object represents a distinct category (e.g., drink container, vehicle, procedural architecture), save the verified script into `examples/recipes/` with all comments and documentation written in English.
 
 This ensures that the agent permanently learns from every mistake across all future sessions without ever needing heavy model retraining.
 
