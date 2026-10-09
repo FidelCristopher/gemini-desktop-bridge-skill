@@ -20,9 +20,9 @@ Whenever this skill is triggered, invoked (e.g. via `/skill blender-bridge`, `/s
    - Your VERY FIRST AND ONLY response to the user must be to STOP immediately and present the 3 input options:
 
    "Halo! Gemini Desktop Blender Bridge aktif. Bagaimana Anda ingin memberikan referensi untuk model 3D baru?
-   1. 📂 **Pilih Gambar dari Komputer (File Explorer)**: Membuka jendela dialog untuk memilih gambar referensi.
-   2. 📁 **Ketik Path File Gambar**: Masukkan path file gambar secara langsung (misal: `C:\Users\...\gambar.png`).
-   3. ✏️ **Deskripsi Teks / Prompt**: Jelaskan langsung objek 3D apa yang ingin Anda buat."
+   1. **Pilih Gambar dari Komputer (File Explorer)**: Membuka jendela dialog untuk memilih gambar referensi.
+   2. **Ketik Path File Gambar**: Masukkan path file gambar secara langsung (misal: `C:\Users\...\gambar.png`).
+   3. **Deskripsi Teks / Prompt**: Jelaskan langsung objek 3D apa yang ingin Anda buat."
 
 3. **WAIT FOR EXPLICIT USER RESPONSE:**
    - You MUST wait for the user to choose option 1, 2, or 3 before generating any code, writing any file, or touching Blender.
