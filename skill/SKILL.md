@@ -205,3 +205,10 @@ This ensures that the agent permanently learns from every mistake across all fut
   1. **Preserve Theme Background:** In Material Preview shading, keep `space.shading.use_scene_world = False` and ensure `space.shading.background_type = 'THEME'`. This lets Blender use its built-in studio reflection environment while keeping the comfortable neutral dark-grey viewport background.
   2. **Dark Neutral Scene World:** When custom scene world shaders are defined, set the background color to a dark studio tone (`Color: (0.08, 0.08, 0.09)`) instead of bright white, preventing eye strain and overexposed viewport backgrounds.
 
+### 12. Localized Protrusion Smoothing via Cosine Radial Falloff
+- **Problem:** Photogrammetry or composite drink meshes can possess localized outward bulges or angular "shoulders" along the lower taper, disrupting the smooth curvature of surrounding glass walls.
+- **Rule:** To eliminate localized protrusions without affecting toppings, UV coordinates, or overall geometry:
+  1. **Identify the Exact Bulge Range:** Locate the specific $Z$-center and half-width where the mesh juts out.
+  2. **Apply a Smooth Bell-Curve Falloff:** Use a Cosine falloff (`weight = 0.5 * (1.0 + cos(pi * dist / width))`) to smoothly taper vertex $X$ and $Y$ radii inward by a modest factor (~5% to 7%).
+  3. **Zero Disturbance to Surrounding Areas:** Vertices outside the falloff zone remain 100% untouched, producing a monotonically smooth silhouette that flows naturally along the curvature of the glass.
+
