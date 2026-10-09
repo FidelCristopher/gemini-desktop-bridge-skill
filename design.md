@@ -215,4 +215,45 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - Output Files: `C:\Users\Pongo\Downloads\glass-cup.glb` and `C:\Users\Pongo\Downloads\plastic-cup.glb` ($10.65\text{ MB}$).
   - Fully self-contained glTF 2.0 binary containing 3 embedded 2K PBR textures, applied high-resolution geometry, and punctual lighting for universal real-time rendering.
 
+---
+
+## Asset Log #05: Traditional Japanese Bamboo Matcha Scoop (Chashaku - 茶杓)
+**Timestamp:** 2026-10-09 20:38:00  
+**Category:** Japanese Tea Ceremony Utensil (*Chashaku*)  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/matcha-powder-chashaku.png`)
+
+### 1. Geometric Architecture & Dimensions
+- **Physical Proportions:**
+  - Total Length: $18.0\text{ cm}$ ($180\text{ mm} = 0.180\text{ m}$)
+  - Handle Width: $9.8\text{ mm}$ at butt end, tapering smoothly to $8.0\text{ mm}$ at neck.
+  - Shaft Thickness: $2.0\text{ mm}$ along handle, swelling to $2.6\text{ mm}$ at node, and tapering to $0.9\text{ mm}$ at scoop tip.
+  - Scoop Head (*Kai-saki* & *Tsuyu*): Carved spatula with ergonomic shallow concave cradle ($0.75\text{ mm}$ trough depth) to hold matcha powder securely.
+  - Ergonomic Bend (*O-re*): Gentle $32^\circ$ upward curve reaching $Z \approx 13.8\text{ mm}$.
+  - Bamboo Node (*Fushi*): Botanical joint swelling at $Y = 112\text{ mm}$ featuring a transverse carved shelf step.
+- **Cross-Section & Topology:**
+  - Split bamboo culm cross-section: convex cylindrical rind on bottom ($R_{culm} = 38\text{ mm}$), sculpted concave canal on top.
+  - 150 longitudinal stations $\times$ 28 perimeter cross-section vertices forming clean quad strips with quad-capped ends.
+  - Subdivided via Subdivision Surface Level 2.
+
+### 2. Shader & PBR Architecture
+- **Material Identity:** `Japanese_Bamboo_Chashaku` / `Bamboo_Chashaku_PBR_Export`
+- **Longitudinal Vascular Fibers:** Anisotropic mapping ($Scale_X: 85, Scale_Y: 3.5, Scale_Z: 85$) driving high-detail bamboo wood grain.
+- **Color Palette (Linear Space):**
+  - Golden honey cane skin: `#C4A767` to `#8E6D38` (`RGB: 0.28, 0.18, 0.065`).
+  - Dark vascular grain lines: `RGB: 0.14, 0.075, 0.022`.
+  - Botanical node ring: Deep toasted umber `RGB: 0.055, 0.022, 0.007`.
+  - Artisan Maker's Mark: Branded circular seal near handle butt `RGB: 0.02, 0.008, 0.003`.
+- **Surface Finish:** Hand-carved satin sheen ($\text{Roughness} \approx 0.35$, $\text{Specular} = 0.50$, fine micro-fiber bump).
+
+### 3. 2K Texture Baking & GLB Export Pipeline
+- **2K PBR Baking:** Cycles emission bake producing:
+  - `Chashaku_BaseColor.png` (2048 x 2048 PNG)
+  - `Chashaku_Roughness.png` (2048 x 2048 PNG, Non-Color)
+  - `Chashaku_Normal.png` (2048 x 2048 PNG Tangent Space, Non-Color)
+- **Output Files:**
+  - `C:\Users\Pongo\Downloads\matcha-powder-chashaku.glb` ($5.42\text{ MB}$)
+  - `C:\Users\Pongo\Downloads\chashaku.glb` ($5.42\text{ MB}$)
+  - Fully self-contained with 3 embedded 2K PBR image textures and applied Level 2 geometry.
+
+
 

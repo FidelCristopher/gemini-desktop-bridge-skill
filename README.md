@@ -90,7 +90,9 @@ gemini-desktop-bridge-skill/
     └── recipes/
         ├── 04_iced_latte_glass_lathe.py        # Verified Recipe: Seamless watertight glass & beverage lathe
         ├── 05_thermoformed_pet_plastic_cup.py  # Verified Recipe: High-precision thermoformed disposable PET plastic cup
-        └── 06_katakuchi_matcha_chawan.py       # Verified Recipe: Traditional Katakuchi Matcha Chawan with dual glaze & Kuro-ten spots
+        ├── 06_katakuchi_matcha_chawan.py       # Verified Recipe: Traditional Katakuchi Matcha Chawan with dual glaze & Kuro-ten spots
+        └── 07_japanese_bamboo_chashaku.py      # Verified Recipe: Authentic Bamboo Chashaku with 2K PBR texture baking
+
 
 
 ```
