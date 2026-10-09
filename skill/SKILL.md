@@ -114,3 +114,40 @@ bpy.ops.export_scene.gltf(
 )
 print(f"Exported to {export_path}")
 ```
+
+## Continuous Learning & Revision Recording Scheme
+
+Whenever the user requests a correction, refinement, or reports an issue/artifact with a generated 3D model:
+
+1. **Diagnose Root Cause:** Determine why the visual artifact occurred (e.g., modifier collapse, lighting, missing refraction, node type mismatches).
+2. **Apply Live Correction:** Generate the corrected `bpy` script, test it, and update Blender desktop immediately.
+3. **Record Lesson Learned:** Automatically extract the generalized rule and append it to the `## Lessons Learned & Best Practices (Memory Bank)` section of this `SKILL.md`.
+4. **Save Reusable Recipe:** If the object represents a distinct category (e.g., drink container, vehicle, procedural architecture), save the verified script into `examples/recipes/`.
+
+This ensures that the agent permanently learns from every mistake across all future sessions without ever needing heavy model retraining.
+
+## Lessons Learned & Best Practices (Memory Bank)
+
+### 1. Liquids in Containers & Glasses (Zero-Gap Watertight Rule)
+- **Problem:** Applying a Subdivision Surface modifier (`SUBSURF`) to a standalone cylinder liquid causes the top and bottom circular caps to shrink/collapse inward into an egg/capsule shape, leaving an unnatural air gap between the liquid and the glass wall.
+- **Rule:** Never use raw Subsurf on cylinder liquids inside containers. Always generate liquid geometry using a shared **Lathe / Revolved Profile** whose outer radius matches the container's inner wall coordinates exactly. Both liquid and foam must hug the inner glass wall seamlessly from base to surface.
+
+### 2. Glass Transparency & Visibility in EEVEE / Material Preview
+- **Problem:** By default in EEVEE Material Preview, pure glass with `Transmission = 1.0` can render as an opaque reflective shell, obscuring the liquid, ice cubes, and contents inside.
+- **Rule:** Always configure transparent glass materials with:
+  - `mat.blend_method = 'BLEND'`
+  - `mat.use_raytrace_refraction = True` (if supported by Blender version)
+  - `bsdf.inputs['Alpha'].default_value = 0.20` to `0.25`
+  - Viewport display color: `mat.diffuse_color = (0.95, 0.98, 1.0, 0.20)`
+  This ensures the glass is crystal clear in the viewport and all internal contents are vividly visible.
+
+### 3. Creamy Beverages & Organic Foam Texturing
+- **Rule for Liquids:** For milky beverages (matcha latte, milk tea, coffee), add Subsurface Scattering (`Subsurface Weight: 0.35 - 0.45`, `Roughness: ~0.22`) and a procedural Noise Texture (`Scale: 4 - 6`) piped through a ColorRamp (`ShaderNodeValToRGB`) for subtle swirl variations.
+- **Rule for Foam/Cream:** Use high-frequency Noise (`Scale: 50.0`, `Detail: 8.0`) connected to a Bump node (`Strength: 0.35`) into the Principled BSDF `Normal` socket to produce realistic micro-bubble foam porosity.
+- **Rule for Powder Dusting:** Use micro-noise (`Scale: 80.0`) with a Bump node (`Strength: 0.6`) and ColorRamp (`ShaderNodeValToRGB`) to produce granular powder flakes instead of a flat disc.
+
+### 4. Blender Shader Node Python API Identifiers
+- Principled BSDF node type is `'ShaderNodeBsdfPrincipled'` (NOT `'ShaderNodePrincipledBSDF'`).
+- ColorRamp node type is `'ShaderNodeValToRGB'` (NOT `'ShaderNodeColorRamp'`).
+- In Blender 4.0+, `mat.use_nodes = True` automatically generates `'Principled BSDF'` and `'Material Output'`. Always access them via `nodes.get("Principled BSDF")` rather than recreating them from scratch.
+

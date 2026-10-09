@@ -58,6 +58,7 @@ Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red spo
 - **Image-to-3D Reference Modeling:** Easily insert images into the terminal via native Windows/Desktop File Picker Dialog (`pick_image.py --dialog`) or straight from your Clipboard (`pick_image.py --clipboard`, e.g. Win + Shift + S screenshot). Gemini analyzes geometry, proportions, and materials to recreate the 3D model in Blender.
 - **PBR Materials & Modifiers:** Automatically configures *Principled BSDF*, Base Color, Roughness, Metallic, Bevel, and Subdivision Surface modifiers.
 - **Direct GLB Export:** Supports exporting generated 3D scenes directly to standard `.glb` / `.gltf` binary formats.
+- **Continuous Learning Memory:** Automatically records visual corrections, geometry rules, and shader fixes into the skill's persistent memory bank (`SKILL.md`) and recipe library, preventing recurring modeling errors across future sessions.
 - **Cross-Platform & WSL2 Ready:** Seamlessly works on native Linux, macOS, native Windows, and WSL2 talking to Windows desktop.
 - **Thread-Safe Execution:** Scripts run on Blender's main event loop using `bpy.app.timers` to eliminate context errors and crashes.
 
@@ -80,7 +81,9 @@ gemini-desktop-bridge-skill/
 └── examples/
     ├── 01_coffee_cup.py           # Example: Procedural ceramic coffee cup
     ├── 02_lowpoly_car.py          # Example: Low-poly vehicle with wheels
-    └── 03_export_glb.py           # Example: Glowing crystal + GLB export
+    ├── 03_export_glb.py           # Example: Glowing crystal + GLB export
+    └── recipes/
+        └── 04_iced_latte_glass_lathe.py  # Verified Recipe: Seamless watertight glass & beverage lathe
 ```
 
 ---
