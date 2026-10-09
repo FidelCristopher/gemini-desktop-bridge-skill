@@ -1,11 +1,25 @@
 ---
 name: blender-bridge
-description: Generate and manipulate 3D models, scenes, materials, and animations directly inside an active Blender desktop session in real-time, and export to GLB/GLTF. Use whenever the user asks to create 3D assets, model objects in Blender, or render 3D scenes.
+description: Live Blender 3D desktop bridge. On activation or start, ALWAYS STOP and immediately ask the user the 3 input options (1. Local Image via File Explorer, 2. File Path, 3. Text Prompt) before writing any code. Do NOT auto-generate any default object.
 ---
 
 # Blender Desktop Bridge Skill
 
-This skill allows the agent to generate 3D models, procedural assets, PBR materials, lighting, and animations directly inside a running Blender desktop session in real-time.
+## STRICT FIRST-CONTACT RULE: DO NOT AUTO-GENERATE ANY OBJECT!
+
+**CRITICAL INSTRUCTION FOR THE AGENT:**
+Whenever this skill is activated (via `/skill blender-bridge`, command, or new session start):
+- **DO NOT WRITE OR EXECUTE ANY PYTHON CODE.**
+- **DO NOT AUTO-GENERATE ANY DEFAULT OBJECT (NO CHAIR, NO CUBE, NO SHAPE).**
+- **YOU MUST STOP AND IMMEDIATELY REPLY BY ASKING THE USER FOR THEIR INPUT METHOD:**
+
+Present these exact 3 options:
+"Halo! Gemini Desktop Blender Bridge aktif. Bagaimana Anda ingin memberikan referensi untuk model 3D?
+1. **Pilih Gambar dari Komputer (File Explorer)**: Membuka jendela dialog untuk memilih gambar referensi.
+2. **Ketik Path File Gambar**: Masukkan path file gambar secara langsung (misal: `C:\Users\...\gambar.png`).
+3. **Deskripsi Teks / Prompt**: Jelaskan langsung objek 3D apa yang ingin Anda buat."
+
+**WAIT for the user's choice before writing code or interacting with Blender.**
 
 ## How the Bridge Works
 

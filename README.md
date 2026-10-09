@@ -16,7 +16,7 @@ Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red spo
 +-----------------------------------------------------------------+
 |                    Terminal / Pi Coding Agent                   |
 |                                                                 |
-|   User Prompt: "Create a wooden chair in Blender"               |
+|   User Prompt: "Create a 3D model in Blender"                   |
 |       |                                                         |
 |       v                                                         |
 |   [Gemini / LLM Agent] ----> Generates bpy Python Script        |
@@ -118,7 +118,7 @@ cd gemini-desktop-bridge-skill
 ### Step 3: Prompt the Pi Agent
 Interact naturally with the Pi Agent in your terminal. Whenever you want to generate a 3D asset, the agent will present 3 flexible input methods:
 1. **Pick Image from Local (File Explorer GUI):** Opens a native Windows dialog window to browse and click your image.
-2. **Specify Image File Path:** Provide a direct image path (e.g. `C:\Users\Pongo\Pictures\chair.png`).
+2. **Specify Image File Path:** Provide a direct image path (e.g. `C:\Users\Pongo\Pictures\reference.png`).
 3. **Text Prompt Description:** Describe the 3D model directly using text.
 
 > **User:** *"I want to create a 3D model in Blender"*
@@ -136,7 +136,6 @@ Interact naturally with the Pi Agent in your terminal. Whenever you want to gene
 ## Example Prompts
 
 - *"Create a 3D model in Blender from an image"* -> The agent offers a native File Picker dialog or grabs from your clipboard.
-- *"Model this chair in Blender based on C:\Users\Pongo\Pictures\chair.png"*
 - *"Create a ceramic coffee cup with steam and a handle"*
 - *"Build a low-poly sports car with silver rims and a metallic red body"*
 - *"Generate a low-poly pine tree with an icosphere foliage canopy"*
