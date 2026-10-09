@@ -69,6 +69,7 @@ Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red spo
 ```bash
 gemini-desktop-bridge-skill/
 ├── README.md                      # Documentation and usage guide
+├── design.md                      # Living 3D asset design & specification log
 ├── blender_bridge.py              # Main bridge script executed in Blender
 ├── install.sh                     # One-click installer for Pi Agent
 ├── blender_addon/

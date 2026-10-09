@@ -43,6 +43,17 @@ Whenever the user invokes the skill or asks to generate 3D assets in Blender:
    - If success: inform the user that the model is now visible in their Blender viewport.
    - If connection error: prompt the user to make sure `blender_bridge.py` is running in Blender.
 
+6. **MANDATORY: Update `design.md` (Design Specification Log):**
+   - Every time a 3D asset is generated, significantly refined, or modified, automatically create or append its entry in `design.md` within the project root.
+   - Record:
+     - Asset Name / Title & Timestamp
+     - Category & Source (prompt or image reference path)
+     - Geometric Architecture (primitives, lathe profiles, modifiers, vertex count, dimensions)
+     - Shader & PBR Parameters (Base Color, Roughness, Metallic, Transmission, IOR, SSS, bump nodes)
+     - Lighting Setup & Shading Configuration
+     - Refinement Notes & Corrections applied
+   - **MANDATORY LANGUAGE:** All entries in `design.md` must be written strictly in professional technical English.
+
 ## Blender `bpy` Scripting Guidelines
 
 ### 1. Scene Management
