@@ -60,16 +60,24 @@ Whenever the user invokes the skill or asks to generate 3D assets in Blender:
    - If success: inform the user that the model is now visible in their Blender viewport.
    - If connection error: prompt the user to make sure `blender_bridge.py` is running in Blender.
 
-6. **MANDATORY: Update `design.md` (Design Specification Log):**
-   - Every time a 3D asset is generated, significantly refined, or modified, automatically create or append its entry in `design.md` within the project root.
-   - Record:
-     - Asset Name / Title & Timestamp
-     - Category & Source (prompt or image reference path)
-     - Geometric Architecture (primitives, lathe profiles, modifiers, vertex count, dimensions)
-     - Shader & PBR Parameters (Base Color, Roughness, Metallic, Transmission, IOR, SSS, bump nodes)
-     - Lighting Setup & Shading Configuration
-     - Refinement Notes & Corrections applied
-   - **MANDATORY LANGUAGE:** All entries in `design.md` must be written strictly in professional technical English.
+6. **MANDATORY: Update `design.md` & `README.md` in Official Repository:**
+   - Every time a 3D asset is generated, significantly refined, or modified, the agent **MUST** automatically update the documentation directly within the official repository:
+     - **Target Repo (Windows):** `C:\Users\Pongo\gemini-desktop-bridge-skill\`
+     - **Target Repo (WSL):** `/mnt/c/Users/Pongo/gemini-desktop-bridge-skill/` (and mirror to `~/gemini-desktop-bridge-skill/`)
+     - **GitHub Remote:** `https://github.com/FidelCristopher/gemini-desktop-bridge-skill`
+   - **Updating `design.md`:**
+     - Append the complete architectural entry for the asset:
+       - Asset Name / Title & Timestamp
+       - Category & Source (text prompt or image reference file path)
+       - Geometric Architecture (primitives, lathe profiles, modifiers, vertex count, key dimensions)
+       - Shader & PBR Parameters (Base Color, Roughness, Metallic, Transmission, IOR, SSS, bump nodes)
+       - Lighting Rig & Viewport Shading Settings
+       - Refinement Notes & Specific Geometric Corrections applied
+   - **Updating `README.md`:**
+     - When new features, recipe scripts, or major asset categories are added, keep the repository `README.md` updated and in sync.
+   - **Auto Git Commit:**
+     - Stage and commit the updated `.md` files in the repository with a clean commit message (e.g., `docs: update design.md for <asset_name>`), ensuring the repository is always clean and ready for `git push origin main`.
+   - **MANDATORY LANGUAGE:** All documentation entries in `design.md` and `README.md` must be written strictly in professional technical English.
 
 ## Blender `bpy` Scripting Guidelines
 
