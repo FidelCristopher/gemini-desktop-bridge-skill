@@ -185,3 +185,10 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Construct Solid Beveled Base:** Seal open bottom loops by creating a solid beveled glass bottom disc matching the base diameter and joining it directly into the glass mesh to simulate real thick tumbler glassware.
   3. **Avoid Backface Clipping:** Set glass materials to `blend_method = 'HASHED'` and ensure backface culling is disabled (`show_transparent_back = True`) to maintain full depth perception and eliminate angle-dependent disappearing faces.
 
+### 9. Full-Volume Beverage Filling & Solid Glass Wall/Base Thickness
+- **Problem:** Attempting to patch sliced/cut 3D scan meshes often causes harsh color steps or hollow air gaps where the liquid fails to reach the glass base.
+- **Rule:**
+  1. **Solid 1-Piece Glass Shell:** Generate the glass tumbler as a contiguous revolved profile featuring a solid, thick crystal base ($Z = 0.00$ to $0.24$) and consistent realistic wall thickness (~0.055 units) with a rounded rim lip.
+  2. **100% Watertight Liquid Volume:** Liquid geometry must start directly upon the inner solid glass floor ($Z = 0.24$) and fill upward to the foam line ($Z = 1.95$), matching the inner glass wall coordinates exactly.
+  3. **Continuous Layering:** The cold foam layer sits directly on the liquid surface, extending upward to the top rim. This guarantees that the beverage fills 100% of the interior volume with zero holes, zero sharp edge artifacts, and realistic glass wall refraction.
+
