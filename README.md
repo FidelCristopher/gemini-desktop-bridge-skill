@@ -57,7 +57,9 @@ Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red spo
 - **Real-Time Viewport Sync:** Meshes, lights, and materials appear immediately without saving or reloading files.
 - **Image-to-3D Reference Modeling:** Easily insert images into the terminal via native Windows/Desktop File Picker Dialog (`pick_image.py --dialog`) or straight from your Clipboard (`pick_image.py --clipboard`, e.g. Win + Shift + S screenshot). Gemini analyzes geometry, proportions, and materials to recreate the 3D model in Blender.
 - **PBR Materials & Modifiers:** Automatically configures *Principled BSDF*, Base Color, Roughness, Metallic, Bevel, and Subdivision Surface modifiers.
-- **Direct GLB Export:** Supports exporting generated 3D scenes directly to standard `.glb` / `.gltf` binary formats.
+- **Automated 2K PBR Texture Baking & Self-Contained GLB Export:** Converts procedural shader networks into high-resolution 2K/4K bitmap textures (Base Color, Roughness, Tangent Normal Map) baked via Cycles and embeds them directly inside standalone `.glb` files (`bake_pbr_export_glb.py`).
+- **Default 2K Standard Resolution:** All viewport previews, OpenGL snapshots, and renders automatically execute in crisp 2K (2048x2048) resolution.
+
 - **Continuous Learning Memory:** Automatically records visual corrections, geometry rules, and shader fixes into the skill's persistent memory bank (`SKILL.md`) and recipe library, preventing recurring modeling errors across future sessions.
 - **Cross-Platform & WSL2 Ready:** Seamlessly works on native Linux, macOS, native Windows, and WSL2 talking to Windows desktop.
 - **Thread-Safe Execution:** Scripts run on Blender's main event loop using `bpy.app.timers` to eliminate context errors and crashes.
@@ -78,7 +80,9 @@ gemini-desktop-bridge-skill/
 │   ├── SKILL.md                   # Skill prompt and instructions for Pi Agent
 │   └── scripts/
 │       ├── send_to_blender.py     # Sender CLI tool (HTTP + File Watcher)
-│       └── pick_image.py          # Native File Picker Dialog & Clipboard image tool
+│       ├── pick_image.py          # Native File Picker Dialog & Clipboard image tool
+│       └── bake_pbr_export_glb.py # Automated 2K PBR Texture Baking & GLB Exporter
+
 └── examples/
     ├── 01_coffee_cup.py           # Example: Procedural ceramic coffee cup
     ├── 02_lowpoly_car.py          # Example: Low-poly vehicle with wheels

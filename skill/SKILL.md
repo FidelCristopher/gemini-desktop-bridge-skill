@@ -144,18 +144,24 @@ bevel.width = 0.05
 bevel.segments = 3
 ```
 
-### 5. GLB / glTF Exporting
-When the user specifically requests a `.glb` or `.gltf` file:
-```python
-import os
-export_path = os.path.expanduser("~/output_model.glb")
-bpy.ops.export_scene.gltf(
-    filepath=export_path,
-    export_format='GLB',
-    use_selection=False
-)
-print(f"Exported to {export_path}")
+### 5. Mandatory 2K PBR Texture Baking & GLB Exporting
+When the user requests a `.glb` or `.gltf` file, or when exporting finished 3D assets:
+**NEVER export raw procedural materials directly**, as glTF 2.0 strips procedural nodes resulting in empty `textures: []`.
+Always execute automated 2K PBR texture baking (Base Color, Roughness, Tangent Normal Map) before export:
+```bash
+python3 <skill_dir>/scripts/bake_pbr_export_glb.py --object <ObjectName> --output "C:\Users\Pongo\Downloads\<filename>.glb" --resolution 2048
 ```
+This automatically unwraps UVs, bakes 2K PBR bitmap textures via Cycles, re-wires a clean PBR Principled BSDF material, and exports a self-contained `.glb` binary with embedded textures and applied modifiers.
+
+### 6. Mandatory 2K Standard Resolution (2048 x 2048) for All Renders & Previews
+Whenever generating preview renders, OpenGL snapshots, product showcases, or texture bakes:
+**ALWAYS set the render resolution to 2K (2048 x 2048)** (or 2K aspect ratio equivalent):
+```python
+bpy.context.scene.render.resolution_x = 2048
+bpy.context.scene.render.resolution_y = 2048
+```
+Never generate low-resolution 512x512 or 800x800 renders. High-resolution 2K guarantees that fine procedural textures, glaze gradients, micro-bumps, and iron flecks are crisply resolved.
+
 
 ## Continuous Learning & Revision Recording Scheme
 
