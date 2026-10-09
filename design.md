@@ -64,3 +64,73 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - Fill Light: Area 2.2m, Energy 60W, Color `(0.92, 0.96, 1.0)`, location `(-2.0, -1.5, 1.5)`.
   - Rim Light: Area 1.4m, Energy 120W, Color `(1.0, 1.0, 1.0)`, location `(0.2, 2.2, 2.0)`.
 - **Viewport:** Material Preview shading with `use_scene_world = False` and `background_type = 'THEME'` to preserve the comfortable dark neutral grey interface.
+
+---
+
+## Asset Log #03: Traditional Japanese Katakuchi Matcha Chawan (片口茶碗)
+
+- **Date:** 2026-10-09
+- **Category:** Japanese Ceramic Tableware / Tea Ceremony Vessel (Chawan)
+- **Source:** Image Reference (`/mnt/c/Users/Pongo/Downloads/chawan-matcha.png` / `C:\Users\Pongo\Downloads\chawan-matcha.png`)
+- **Asset Name in Scene:** `Katakuchi_Chawan`
+
+### 1. Geometric Architecture & Dimensions
+- **Physical Proportions:**
+  - **Rim Diameter:** 15.2 cm (Radius $R = 0.076\text{ m}$)
+  - **Total Height:** 6.45 cm ($Z = 0.0645\text{ m}$)
+  - **Foot Ring (Kodai) Outer Diameter:** 7.8 cm (Radius $R = 0.039\text{ m}$, Height $Z = 0.0035\text{ m}$, Width $\approx 4.2\text{ mm}$)
+  - **Wall Thickness:** Uniform $4.2\text{ mm}$ across the entire body, preserving authentic hand-thrown stoneware cross-section.
+- **Topology & Construction:**
+  - **Lathe Profile Generation:** 34 sampled profile coordinate points revolved along 128 radial subdivisions, generating clean quad strips.
+  - **Center Tea Pool (Chadamari):** Non-polar manifold topology at $(0, 0, 0.0095\text{ m})$ to avoid high-valence Catmull-Clark pole creasing rings.
+  - **Pouring Spout (Katakuchi Lip):**
+    - Centered at $\theta = \pi$ ($-X$ axis) with an angular half-span of $25^\circ$.
+    - $C^1$-continuous cosine bell-curve azimuthal falloff $W_{\theta} = \cos(\frac{\Delta \theta}{\theta_{max}} \frac{\pi}{2})^2$ coupled with vertical smoothstep height weighting $W_z = t_z^2 (3 - 2t_z)$ for $Z \in [0.035, 0.0645]\text{ m}$.
+    - Coherent 3D space radial flare $\Delta r = +13.5\text{ mm}$ combined with vertical pour trough depression $\Delta z = -7.5\text{ mm}$. Preserves uniform ceramic wall thickness and prevents edge creasing or thin-blade shearing.
+  - **Wheel-Thrown Concentric Ridges (Rokuro-me):**
+    - 5 tactile horizontal steps and groove depressions on the exterior lower half ($Z = 0.012\text{ m}$ to $0.038\text{ m}$).
+  - **Modifiers:** Subdivision Surface (`Subsurf`) Level 2 viewport and render.
+  - **Shading:** Full smooth shading with consistently recalculated outward normals.
+
+### 2. Shader & PBR Material Specification
+- **Material Name:** `Katakuchi_Ceramic_Master`
+- **Surface Domain Mapping:**
+  - Dual coordinate integration: BMesh Vertex Color Attribute (`CeramicAttrs`) containing:
+    - **Red channel:** `GlazeFactor` ($1.0$ interior glaze, $0.4$ rim crest, $0.0$ exterior clay).
+    - **Green channel:** `GrooveFactor` ($1.0$ in recessed throwing grooves for localized shadow darkening).
+    - **Blue channel:** `ProfileV` (normalized arc-length along revolved profile curve).
+  - High-frequency micro-domain warping perturbing transitions by $\pm 6\%$ to emulate natural hand-dipped kiln glaze breaks (*wabi-sabi* aesthetic).
+- **Multi-Layer PBR Architecture:**
+  1. **Interior Base Glaze:**
+     - Toasted oatmeal / almond cream palette: Base Color gradient from `#C8B698` (`RGB: 0.75, 0.65, 0.51`) to `#DECFA8` (`RGB: 0.88, 0.82, 0.70`).
+     - Procedural tonal noise ($Scale: 16.0, Detail: 5.0$) simulating ash glaze pooling.
+  2. **Kuro-ten (Iron Spots & Flecks):**
+     - Triple-scale Voronoi distance networks perturbed by 3D vector noise:
+       - Large irregular spots ($Scale: 120.0, Randomness: 1.0$)
+       - Medium flecks ($Scale: 240.0, Randomness: 1.0$)
+       - Fine pepper dust ($Scale: 520.0, Randomness: 1.0$)
+     - Spot color: Deep burnt umber / iron oxide (`RGB: 0.08, 0.04, 0.018`).
+  3. **Hidasuki Toasted Golden-Amber Rim Band:**
+     - Concentrated along the upper interior wall and rim crest ($V \in [0.06, 0.18]$).
+     - Color gradient: Deep toasted caramel (`RGB: 0.34, 0.16, 0.06`) to golden amber (`RGB: 0.58, 0.32, 0.12`).
+     - Integrated micro-mottled noise ($Scale: 85.0, Detail: 6.0, Roughness: 0.75$) with cream micro-flecks (`RGB: 0.76, 0.66, 0.48`) simulating glaze breaking over the edge during kiln firing.
+  4. **Exterior Stoneware Terracotta Clay Body:**
+     - Rich chocolate / umber terracotta clay: Base Color `#382012` (`RGB: 0.22, 0.13, 0.075`).
+     - Groove darkening: Green channel groove factor subtracts albedo in throwing rings down to deep umber `#1E0F07` (`RGB: 0.065, 0.032, 0.016`).
+  5. **Surface Finish & Optical Parameters:**
+     - **Glaze Roughness:** Satin ceramic sheen ($Roughness \approx 0.35$).
+     - **Clay Roughness:** Earthy tactile matte stoneware ($Roughness \approx 0.72$).
+     - **Specular IOR Level:** $0.55$.
+     - **Subsurface Scattering:** Subtle ceramic warmth ($Weight: 0.07, Radius: (0.35, 0.25, 0.15)$).
+     - **Micro-Relief Normal Mapping:** Multi-octave bump ($Strength: 0.035, Distance: 0.002\text{ m}, Scale: 130.0$) simulating ceramic orange-peel waviness and clay grog texture.
+
+### 3. Lighting & Viewport Staging
+- **Camera Configuration:**
+  - Focal Length: $62.0\text{ mm}$ (flattering perspective with zero wide-angle distortion).
+  - Location: $(-0.16, -0.26, 0.235)\text{ m}$, Target: $(-0.005, 0.0, 0.025)\text{ m}$.
+  - Elevation Angle: $\approx 38^\circ$ elevated $3/4$ view matching the reference photo perspective.
+- **Studio 3-Point Illumination:**
+  - **Key Area Light:** Soft warm daylight ($1.0, 0.97, 0.92$), Energy $8.5\text{ W}$, Size $0.35\text{ m}$, Position $(-0.20, -0.20, 0.28)\text{ m}$.
+  - **Fill Area Light:** Soft cool fill ($0.95, 0.97, 1.0$), Energy $2.8\text{ W}$, Size $0.45\text{ m}$, Position $(0.24, -0.16, 0.22)\text{ m}$.
+  - **Rim Area Light:** Warm rim highlight ($1.0, 0.96, 0.90$), Energy $5.2\text{ W}$, Size $0.30\text{ m}$, Position $(0.0, 0.26, 0.26)\text{ m}$.
+- **Color Management:** Filmic View Transform with Medium High Contrast for authentic ceramic dynamic range.

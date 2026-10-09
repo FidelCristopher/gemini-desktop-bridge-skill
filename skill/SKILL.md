@@ -240,3 +240,15 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Apply a Smooth Bell-Curve Falloff:** Use a Cosine falloff (`weight = 0.5 * (1.0 + cos(pi * dist / width))`) to smoothly taper vertex $X$ and $Y$ radii inward by a modest factor (~5% to 7%).
   3. **Zero Disturbance to Surrounding Areas:** Vertices outside the falloff zone remain 100% untouched, producing a monotonically smooth silhouette that flows naturally along the curvature of the glass.
 
+### 13. Spouted Ceramics (Katakuchi Chawan) & Wabi-Sabi Dual-Material Glaze Mapping
+- **Problem:**
+  1. Deforming a pouring spout by naive Cartesian offset (`v.co.x -= ...` and `v.co.y *= ...`) collapses wall thickness into a paper-thin knife blade, causes sharp horizontal creasing, and shears inner and outer faces apart.
+  2. Relying on vertical height ($Z$) alone to separate glazed interiors from unglazed/clay exteriors fails at spouts because the spout dips below the normal rim height, creating jagged diagonal color cutoffs.
+  3. A single center vertex fan (pole with high valence, e.g. 128 edges) creates a severe central pinching/dimple ring artifact under Subdivision Surface (`Subsurf`).
+- **Rule:**
+  1. **Coherent Polar Spout Deformation:** Displace vertices radially in polar coordinates ($\Delta r = +D_r \cdot W_{\theta} \cdot W_z$, where $W_{\theta} = \cos(\frac{\Delta \theta}{\theta_{max}} \frac{\pi}{2})^2$ and $W_z$ is smoothstep height weighting). Because displacement is applied purely along the radial normal $\hat{r}$, both inner and outer walls expand outward together, maintaining 100% uniform ceramic wall thickness.
+  2. **Pouring Channel U-Trough:** Combine the radial flare with a quadratic vertical dip ($\Delta z = -D_z \cdot W_{\theta}^{1.6} \cdot W_z$) to form a natural rounded pouring notch.
+  3. **Vertex Color Attribute Glaze Separation:** Store a dedicated float/color attribute (`CeramicAttrs`) on loops during profile lathe generation. Encode interior glaze as $1.0$, rim crest as $0.4$, and exterior clay as $0.0$. When the spout is deformed, the attribute moves coherently with the geometry, ensuring the inner trough stays glazed while the outer spout chin stays clay without any projection artifacts.
+  4. **Multi-Scale Kuro-ten (Iron Spots) & Hidasuki Rim:** Combine triple-scale Voronoi noise with domain-warped coordinates for organic dark iron flecks, and blend a golden-amber toasted caramel gradient over the upper rim with micro-mottled noise for authentic Japanese kiln-fired ceramic aesthetics.
+
+
