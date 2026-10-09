@@ -19,14 +19,19 @@ This skill allows the agent to generate 3D models, procedural assets, PBR materi
 
 Whenever the user asks to generate or modify a 3D asset in Blender:
 
-1. **Write the Blender Python Script:**
+1. **Image Reference (Optional):**
+   - If the user provides a path to an image file (e.g., `.png`, `.jpg`, `.webp`), use the `read` tool to inspect the image.
+   - Deconstruct the image visually: identify primitive geometric components, proportions, color palette, roughness/metallicity, and lighting.
+   - Translate the visual breakdown into corresponding Blender meshes and PBR materials.
+
+2. **Write the Blender Python Script:**
    - Create a temporary script file (e.g., `/tmp/blender_task.py`).
    - Use standard Blender Python API (`bpy`).
-2. **Execute via Sender Tool:**
+3. **Execute via Sender Tool:**
    ```bash
    python3 ~/.pi/agent/skills/blender-bridge/scripts/send_to_blender.py --file /tmp/blender_task.py
    ```
-3. **Check Output:**
+4. **Check Output:**
    - If success: inform the user that the model is now visible in their Blender viewport.
    - If connection error: prompt the user to make sure `blender_bridge.py` is running in Blender.
 
