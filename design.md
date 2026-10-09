@@ -255,5 +255,47 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - `C:\Users\Pongo\Downloads\chashaku.glb` ($5.42\text{ MB}$)
   - Fully self-contained with 3 embedded 2K PBR image textures and applied Level 2 geometry.
 
+---
+
+## Asset Log #06: Gable-Top Milk Carton with Open Pouring Spout
+**Timestamp:** 2026-10-10 06:30:00  
+**Category:** Beverage Packaging & Papercraft Container  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/carton-milk.png`)
+
+### 1. Geometric Architecture & Papercraft Fold Topology
+- **Carton Proportions:**
+  - Base Footprint: $68.0\text{ mm} \times 68.0\text{ mm}$ ($0.068\text{ m} \times 0.068\text{ m}$) square footprint.
+  - Rectangular Box Body Height: $60.0\text{ mm}$ ($0.060\text{ m}$).
+  - Sloping Roof Ridge Peak: $102.0\text{ mm}$ ($0.102\text{ m}$).
+  - Top Sealed Fin Crest: $114.0\text{ mm}$ ($0.114\text{ m}$).
+- **Gable-Top Open Pouring Spout Mechanism:**
+  - **Spout Beak Lip:** Asymmetric $-X$ gable end juts outward by $+12.5\text{ mm}$ past the sidewall eave ($X = -0.0465\text{ m}, Z = 0.096\text{ m}$).
+  - **Pouring Chute & Upper Ears:** The top fin splits open on the spout half, flaring into two triangular ears with an open pour hole providing visual depth into the carton interior.
+  - **Opposite Gable End ($+X$):** Inward-folded triangular gussets sealed by the vertical heat-pressed fin.
+  - **Paperboard Thickness:** $0.65\text{ mm}$ double-walled Solidify modifier with $0.65\text{ mm}$ 2-segment Bevel for tactile rounded paper fold creases.
+
+### 2. Shader & PBR Graphic Typography
+- **Material Identity:** `Carton_Milk_PBR_Export`
+- **Graphic Design Elements:**
+  - Left Face: Hand-drawn "FRESH", illustrated smiling child/baby face, and solid cobalt blue bottom block with cutout stencil "MILK 2% VITAMIN A&D".
+  - Right Face: Script cursive "Always Fresh" on roof slope, large bold blue "MILK", "Enjoy ORGANIC", and "***** GRADE A ***" star banner.
+  - Gable Spout Folds: "<- TO OPEN ->" printed along the eave fold line, and "^ PUSH UP" on the inner flared ear flap.
+  - Top Fin: Blue "EXP:" with expiration date area.
+- **Surface Finish & Interior:**
+  - Exterior Paperboard: Coated matte polyethylene carton board ($\text{Roughness} = 0.85$, $\text{Specular} = 0.20$).
+  - Interior Backfacing: Natural unbleached kraft paperboard (`RGB: 0.86, 0.82, 0.75`).
+  - Score Line Normal: Tangent-space normal map ($Strength = 0.10$) adding subtle paper crease depth.
+
+### 3. 2K PBR Texture Baking & Strict Single GLB Export
+- **2K Texture Atlas Baking (2048 x 2048):**
+  - `Carton_BaseColor.png` (2048 x 2048 PNG): Full composite of illustrated cobalt blue print on off-white paperboard and kraft interior.
+  - `Carton_Roughness.png` (2048 x 2048 PNG, Non-Color): Uniform matte paperboard response ($0.85$).
+  - `Carton_Normal.png` (2048 x 2048 PNG Tangent Space, Non-Color): Subtle 2K paperboard creasing.
+- **Strict Single GLB Output Enforcement:**
+  - Output File: Strictly **ONE single file** generated:
+    `C:\Users\Pongo\Downloads\carton-milk.glb` ($2.62\text{ MB}$).
+  - Fully self-contained glTF 2.0 binary containing 3 embedded 2K PBR image textures and applied geometry.
+
+
 
 
