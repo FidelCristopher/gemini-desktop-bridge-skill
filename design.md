@@ -204,3 +204,15 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - Material Preview with Blender default neutral dark-grey theme background (`space.shading.background_type = 'THEME'`).
   - Active scene lights enabled (`use_scene_lights = True`) to illuminate reflections and rim highlights.
 
+### 4. 2K PBR Texture Baking & Self-Contained GLB Export Pipeline
+- **Problem Resolved:** Standard raw glTF export previously generated an empty 1.5 MB mesh file with zero bitmap textures (`textures: []`), stripping all Fresnel refractions and specular highlights in external 3D viewers.
+- **UV Unwrapping:** Smart UV Project ($66^\circ$ angle limit, $0.01$ island margin) producing clean, continuous coordinates across the revolved meridian.
+- **2K PBR Texture Baking (2048 x 2048):**
+  - **Base Color RGBA (2048 x 2048 PNG):** Cycles emission-baked RGB Fresnel silhouette composite merged with baked Alpha channel (ranging from $0.08$ transparent facing body to $0.92$ grazing rim/contour opacity).
+  - **Roughness Map (2048 x 2048 PNG, Non-Color):** High-gloss optical smoothness ($0.015$).
+  - **Tangent-Space Normal Map (2048 x 2048 PNG, Non-Color):** 16-sample normal baking of rolled rim curvature, indexing ribs, and bottom push-up dimple.
+- **GLB Binary Packaging:**
+  - Output Files: `C:\Users\Pongo\Downloads\glass-cup.glb` and `C:\Users\Pongo\Downloads\plastic-cup.glb` ($10.65\text{ MB}$).
+  - Fully self-contained glTF 2.0 binary containing 3 embedded 2K PBR textures, applied high-resolution geometry, and punctual lighting for universal real-time rendering.
+
+
