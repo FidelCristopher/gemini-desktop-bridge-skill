@@ -151,3 +151,11 @@ This ensures that the agent permanently learns from every mistake across all fut
 - ColorRamp node type is `'ShaderNodeValToRGB'` (NOT `'ShaderNodeColorRamp'`).
 - In Blender 4.0+, `mat.use_nodes = True` automatically generates `'Principled BSDF'` and `'Material Output'`. Always access them via `nodes.get("Principled BSDF")` rather than recreating them from scratch.
 
+### 5. Dusted Powder Toppings (Matcha, Cocoa, Cinnamon)
+- **Problem:** Modeling powdered toppings as a flat standalone disc/circle creates an artificial floating cut-out, unnatural sharp borders, and completely obscures the cream/foam.
+- **Rule:** Never use flat solid discs for dusted powder toppings:
+  1. **Integrated Procedural Mask:** Blend the powder directly onto the top surface of the cream/foam shader using a radial falloff multiplied by multi-octave noise.
+  2. **Selective Coverage:** Concentrate powder toward the center/upper-middle, leaving clear bare cream/foam visible around the outer perimeter and rims.
+  3. **Chalky Matte vs Velvety Foam:** Powder must have high roughness (`~0.95`) and strong micro-noise bump relief (`Strength: 0.7+`) contrasting against the softer foam underneath (`Roughness: 0.45`).
+  4. **3D Micro-Grains:** Supplement the shader with tiny randomized physical 3D grain clumps clustered in the dense zones for realistic macro texture.
+
