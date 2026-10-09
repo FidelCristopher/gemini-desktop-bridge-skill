@@ -85,7 +85,9 @@ gemini-desktop-bridge-skill/
     ├── 03_export_glb.py           # Example: Glowing crystal + GLB export
     └── recipes/
         ├── 04_iced_latte_glass_lathe.py        # Verified Recipe: Seamless watertight glass & beverage lathe
-        └── 05_thermoformed_pet_plastic_cup.py  # Verified Recipe: High-precision thermoformed disposable PET plastic cup
+        ├── 05_thermoformed_pet_plastic_cup.py  # Verified Recipe: High-precision thermoformed disposable PET plastic cup
+        └── 06_katakuchi_matcha_chawan.py       # Verified Recipe: Traditional Katakuchi Matcha Chawan with dual glaze & Kuro-ten spots
+
 
 ```
 

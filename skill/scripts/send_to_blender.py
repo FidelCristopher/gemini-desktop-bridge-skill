@@ -20,7 +20,7 @@ TIMEOUT = 45
 
 def get_wsl_host_ips():
     """Detects Windows host IPs from WSL environment."""
-    ips = ["localhost", "127.0.0.1"]
+    ips = []
     
     # Check default route
     try:
@@ -47,23 +47,28 @@ def get_wsl_host_ips():
     except Exception:
         pass
 
+    for fallback in ["127.0.0.1", "localhost"]:
+        if fallback not in ips:
+            ips.append(fallback)
+
     return ips
 
 def find_bridge_dirs():
     """Finds possible bridge directories across Linux, WSL, and native environments."""
     dirs = []
     
-    # 1. Standard home
-    dirs.append(Path.home() / ".blender_bridge")
-
-    # 2. If in WSL, scan /mnt/c/Users/*
+    # 1. If in WSL, scan /mnt/c/Users/* first
     c_users = Path("/mnt/c/Users")
     if c_users.exists():
         for p in c_users.iterdir():
             if p.is_dir() and p.name not in ("All Users", "Default", "Default User", "Public"):
                 dirs.append(p / ".blender_bridge")
 
+    # 2. Standard home
+    dirs.append(Path.home() / ".blender_bridge")
+
     return dirs
+
 
 def try_http_send(code, port=DEFAULT_PORT):
     """Attempts to send code to Blender via HTTP POST."""
