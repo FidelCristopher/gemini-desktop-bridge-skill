@@ -135,6 +135,18 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - **Rim Area Light:** Warm rim highlight ($1.0, 0.96, 0.90$), Energy $5.2\text{ W}$, Size $0.30\text{ m}$, Position $(0.0, 0.26, 0.26)\text{ m}$.
 - **Color Management:** Filmic View Transform with Medium High Contrast for authentic ceramic dynamic range.
 
+### 4. PBR Texture Baking & glTF / GLB Export Pipeline
+- **Problem Resolved:** Standard procedural Blender node networks (`Noise`, `Voronoi`, `Separate Color`, `Attribute`, `Mix`) cannot be translated by glTF 2.0 specifications, resulting in blank `textures: []` upon raw `.glb` export (252 KB empty container).
+- **UV Layout:** Smart UV Project with angular threshold $66^\circ$ and island margin $0.01$ generating clean non-overlapping coordinates (`UVMap`).
+- **2K Texture Baking:**
+  - **Base Color (Albedo) Map (2048 x 2048 PNG):** Fast 1-sample emission baking of toasted caramel rim, golden amber band, almond cream floor, Kuro-ten iron specks, and chocolate terracotta clay.
+  - **Roughness Map (2048 x 2048 PNG, Non-Color):** Mapped satin glaze ($\approx 0.36$) to matte terracotta exterior ($\approx 0.78$).
+  - **Tangent-Space Normal Map (2048 x 2048 PNG, Non-Color):** 16-sample tangent normal baking of ceramic orange-peel waviness and 5 rokuro-me throwing grooves.
+- **Binary GLB Packaging:**
+  - Output File: `C:\Users\Pongo\Downloads\chawan-matcha.glb` (22.05 MB).
+  - Packed with 3 embedded 2K PBR bitmap textures and fully evaluated Level 2 subdivision geometry for universal Three.js, Godot, Unreal, Unity, and AR viewing.
+
+
 ---
 
 ## Asset: Thermoformed Disposable PET Plastic Cup (16 oz)

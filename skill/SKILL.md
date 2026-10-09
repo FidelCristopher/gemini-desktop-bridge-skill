@@ -274,15 +274,27 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Watertight Manifold Geometry:** The closed revolved mesh is 100% manifold, double-walled, and naturally handles Subdivision Surface (`Subsurf`) level 1 without any modifier explosion or pinching artifacts.
   3. **Fresnel Silhouette Outlines for Clear Polymers:** Drive transparent plastic materials with a `Layer Weight (Facing)` Fresnel node connected to both Base Color and Alpha ramps. Normal-facing angles stay transparent ($\text{Alpha} \approx 0.05$), while glancing angles transition to dark slate refraction tones ($\text{RGB} \approx 0.20, \text{Alpha} \approx 0.92$). This accurately replicates studio black-flag refraction outlines seen in commercial glassware/beverage packaging photography without stochastic raytracing noise.
 
-
-### 14. Thermoformed Thin Plastic Containers & Avoiding Normal Explosion on Lathed Profiles
-- **Problem:**
-  1. Applying a `Solidify` modifier with `use_even_offset = True` or subdividing a standalone open surface with high-valence center poles (e.g. 80-96 radial fans meeting at a single $(0, 0, z)$ vertex) causes vertex normal calculation degeneracy. The normal computation divides by degenerate cross-product angles, projecting the center pole vertices outward into giant horizontal wedge wings/planes across the scene.
-  2. Attempting to render transparent thin plastic cups with stochastic refraction (`Transmission = 1.0` in EEVEE screen-space raytracing) across semi-transparent alpha blends generates severe grain/noise in real-time viewports.
+### 15. glTF / GLB Export Pipeline & Procedural Shader Texture Baking
+- **Problem:** Exporting procedural Blender shader materials directly to `.glb` / `.gltf` strips all procedural mathematical nodes (`Noise`, `Voronoi`, `Mix`, `Attribute`, `ColorRamp`), resulting in a blank/empty material (`textures: []`) because runtime glTF 2.0 specifications strictly mandate bitmap image textures connected to Principled BSDF.
 - **Rule:**
-  1. **Contiguous Closed-Profile Revolve:** Never rely on raw `Solidify` modifiers over high-density polar caps. Revolve a continuous, closed 2D meridian contour containing both outer and inner boundaries: outer base dimple $\to$ foot ring $\to$ kick-up skirt $\to$ stacking recess crease $\to$ tapered conical sidewall $\to$ stacking rib $\to$ toroidal rolled rim bead $\to$ inward normal offset inner wall ($t \approx 0.55\text{ mm}$) $\to$ inner floor disc.
-  2. **Watertight Manifold Geometry:** The closed revolved mesh is 100% manifold, double-walled, and naturally handles Subdivision Surface (`Subsurf`) level 1 without any modifier explosion or pinching artifacts.
-  3. **Fresnel Silhouette Outlines for Clear Polymers:** Drive transparent plastic materials with a `Layer Weight (Facing)` Fresnel node connected to both Base Color and Alpha ramps. Normal-facing angles stay transparent ($\text{Alpha} \approx 0.05$), while glancing angles transition to dark slate refraction tones ($\text{RGB} \approx 0.20, \text{Alpha} \approx 0.92$). This accurately replicates studio black-flag refraction outlines seen in commercial glassware/beverage packaging photography without stochastic raytracing noise.
+  1. **UV Unwrap Verification:** Verify or generate clean, non-overlapping UV coordinates (`bpy.ops.uv.smart_project(island_margin=0.01)`) prior to baking.
+  2. **High-Speed Zero-Noise Emission Baking:**
+     - To bake pure unshaded Base Color (Albedo) and scalar Roughness maps without stochastic noise or long render times, route the evaluated color/scalar output into a temporary `ShaderNodeEmission` shader and bake using Cycles `bake_type = 'EMIT'` with `samples = 1`.
+     - Bake tangent-space normal maps using `bake_type = 'NORMAL'` with `normal_space = 'TANGENT'`.
+  3. **PBR Export Shader Rewiring:** Replace the procedural node tree with standard `ShaderNodeTexImage` nodes piped into Principled BSDF sockets (`Base Color` sRGB, `Roughness` Non-Color, and `Normal Map` Non-Color).
+  4. **Self-Contained GLB Export:** Call `bpy.ops.export_scene.gltf` with `export_materials = 'EXPORT'`, `export_image_format = 'AUTO'`, and `export_apply = True`. This guarantees that all 2K/4K PBR textures are packed and embedded directly inside the binary `.glb` container for universal web, game engine, and AR compatibility.
+
+
+### 15. glTF / GLB Export Pipeline & Procedural Shader Texture Baking
+- **Problem:** Exporting procedural Blender shader materials directly to `.glb` / `.gltf` strips all procedural mathematical nodes (`Noise`, `Voronoi`, `Mix`, `Attribute`, `ColorRamp`), resulting in a blank/empty material (`textures: []`) because runtime glTF 2.0 specifications strictly mandate bitmap image textures connected to Principled BSDF.
+- **Rule:**
+  1. **UV Unwrap Verification:** Verify or generate clean, non-overlapping UV coordinates (`bpy.ops.uv.smart_project(island_margin=0.01)`) prior to baking.
+  2. **High-Speed Zero-Noise Emission Baking:**
+     - To bake pure unshaded Base Color (Albedo) and scalar Roughness maps without stochastic noise or long render times, route the evaluated color/scalar output into a temporary `ShaderNodeEmission` shader and bake using Cycles `bake_type = 'EMIT'` with `samples = 1`.
+     - Bake tangent-space normal maps using `bake_type = 'NORMAL'` with `normal_space = 'TANGENT'`.
+  3. **PBR Export Shader Rewiring:** Replace the procedural node tree with standard `ShaderNodeTexImage` nodes piped into Principled BSDF sockets (`Base Color` sRGB, `Roughness` Non-Color, and `Normal Map` Non-Color).
+  4. **Self-Contained GLB Export:** Call `bpy.ops.export_scene.gltf` with `export_materials = 'EXPORT'`, `export_image_format = 'AUTO'`, and `export_apply = True`. This guarantees that all 2K/4K PBR textures are packed and embedded directly inside the binary `.glb` container for universal web, game engine, and AR compatibility.
+
 
 
 
