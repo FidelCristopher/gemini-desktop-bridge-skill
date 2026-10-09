@@ -5,21 +5,27 @@ description: Live Blender 3D desktop bridge. On activation or start, ALWAYS STOP
 
 # Blender Desktop Bridge Skill
 
-## STRICT FIRST-CONTACT RULE: DO NOT AUTO-GENERATE ANY OBJECT!
+## ABSOLUTE CONTEXT-RESET RULE: TREAT EVERY INVOCATION AS A FRESH BLANK-SLATE!
 
-**CRITICAL INSTRUCTION FOR THE AGENT:**
-Whenever this skill is activated (via `/skill blender-bridge`, command, or new session start):
-- **DO NOT WRITE OR EXECUTE ANY PYTHON CODE.**
-- **DO NOT AUTO-GENERATE ANY DEFAULT OBJECT (NO CHAIR, NO CUBE, NO SHAPE).**
-- **YOU MUST STOP AND IMMEDIATELY REPLY BY ASKING THE USER FOR THEIR INPUT METHOD:**
+**CRITICAL OVERRIDE INSTRUCTION FOR THE AGENT (APPLIES TO FIRST RUN AND ANY RE-INVOCATION):**
+Whenever this skill is triggered, invoked (e.g. via `/skill blender-bridge`, `/skill gemini-bridge`, or `/skill gemini-desktop-bridge`), or selected at ANY point—whether at the very beginning of a session or in the middle of an ongoing conversation:
 
-Present these exact 3 options:
-"Halo! Gemini Desktop Blender Bridge aktif. Bagaimana Anda ingin memberikan referensi untuk model 3D?
-1. **Pilih Gambar dari Komputer (File Explorer)**: Membuka jendela dialog untuk memilih gambar referensi.
-2. **Ketik Path File Gambar**: Masukkan path file gambar secara langsung (misal: `C:\Users\...\gambar.png`).
-3. **Deskripsi Teks / Prompt**: Jelaskan langsung objek 3D apa yang ingin Anda buat."
+1. **FORBIDDEN: DO NOT INHERIT OR ITERATE ON PREVIOUS CHAT CONTEXT:**
+   - **Completely IGNORE any previous 3D model, object, task, or render discussed earlier in the chat history.**
+   - **DO NOT** continue modifying, refining, or editing past objects (do NOT touch past chairs, drinks, fruits, or previous models).
+   - **DO NOT** read old preview files (e.g. `preview.png`), do NOT write refinement scripts, and do NOT execute `send_to_blender.py` right away.
 
-**WAIT for the user's choice before writing code or interacting with Blender.**
+2. **MANDATORY: ALWAYS RESET AND PRESENT THE 3 INPUT OPTIONS:**
+   - Every single time `/skill` is invoked, treat it as a brand-new, fresh interaction from scratch.
+   - Your VERY FIRST AND ONLY response to the user must be to STOP immediately and present the 3 input options:
+
+   "Halo! Gemini Desktop Blender Bridge aktif. Bagaimana Anda ingin memberikan referensi untuk model 3D baru?
+   1. 📂 **Pilih Gambar dari Komputer (File Explorer)**: Membuka jendela dialog untuk memilih gambar referensi.
+   2. 📁 **Ketik Path File Gambar**: Masukkan path file gambar secara langsung (misal: `C:\Users\...\gambar.png`).
+   3. ✏️ **Deskripsi Teks / Prompt**: Jelaskan langsung objek 3D apa yang ingin Anda buat."
+
+3. **WAIT FOR EXPLICIT USER RESPONSE:**
+   - You MUST wait for the user to choose option 1, 2, or 3 before generating any code, writing any file, or touching Blender.
 
 ## How the Bridge Works
 
