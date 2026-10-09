@@ -157,5 +157,11 @@ This ensures that the agent permanently learns from every mistake across all fut
   1. **Integrated Procedural Mask:** Blend the powder directly onto the top surface of the cream/foam shader using a radial falloff multiplied by multi-octave noise.
   2. **Selective Coverage:** Concentrate powder toward the center/upper-middle, leaving clear bare cream/foam visible around the outer perimeter and rims.
   3. **Chalky Matte vs Velvety Foam:** Powder must have high roughness (`~0.95`) and strong micro-noise bump relief (`Strength: 0.7+`) contrasting against the softer foam underneath (`Roughness: 0.45`).
-  4. **3D Micro-Grains:** Supplement the shader with tiny randomized physical 3D grain clumps clustered in the dense zones for realistic macro texture.
+
+### 6. Photorealistic Beverage Structure & Soft Powdery Velvet Toppings (Showcase Standard)
+- **Problem:** Adding sharp or discrete 3D particles to powder toppings can look like rigid gravel, stones, or pebbles instead of soft, fluffy matcha/cocoa powder.
+- **Rule:**
+  1. **Soft Velvet Powder:** Never use chunky stone/pebble particles for food powders. Powder must look soft and seamlessly dusted: use smooth undulating organic mesh folds with soft micro-gradient dusting, high roughness (`0.85 - 0.90`), and low specular (`~0.2`) to simulate velvety light absorption.
+  2. **Layered Asset Hierarchy:** Separate beverage assets into clean functional layers (`base_glass`, `liquid_contents`, `topping_cream`) so each layer can have independent optical properties (crisp glass reflection vs milky subsurface vs matte cream).
+  3. **Studio 3-Point Lighting:** Always illuminate beverage scenes with a 3-point lighting setup (Key Light, Fill Light, Rim Light) to make glass specular reflections, ice depth, and rich beverage colors pop in the viewport.
 
