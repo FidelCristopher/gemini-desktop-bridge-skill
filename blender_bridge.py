@@ -1,6 +1,6 @@
 bl_info = {
     "name": "Pi Desktop Blender Bridge",
-    "author": "Fidel Cristopher & Pi Agent",
+    "author": "Fidel Cristopher",
     "version": (1, 0, 0),
     "blender": (4, 0, 0),
     "location": "View3D > Sidebar (N) > Pi Bridge / Scripting",
