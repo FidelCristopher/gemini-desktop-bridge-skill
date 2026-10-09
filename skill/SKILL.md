@@ -17,21 +17,29 @@ This skill allows the agent to generate 3D models, procedural assets, PBR materi
 
 ## Execution Workflow
 
-Whenever the user asks to generate or modify a 3D asset in Blender:
+Whenever the user invokes the skill or asks to generate 3D assets in Blender:
 
-1. **Image Reference (Optional):**
-   - If the user provides a path to an image file (e.g., `.png`, `.jpg`, `.webp`), use the `read` tool to inspect the image.
-   - Deconstruct the image visually: identify primitive geometric components, proportions, color palette, roughness/metallicity, and lighting.
-   - Translate the visual breakdown into corresponding Blender meshes and PBR materials.
+1. **Reference Input Options:**
+   If the user asks to model from an image or if they want to provide an image reference:
+   Offer or execute one of these input methods:
+   - **File Explorer GUI Dialog:** Run `python3 <skill_dir>/scripts/pick_image.py --dialog` to open a native Windows/system file selector window where the user can click and select an image file.
+   - **System Clipboard:** Run `python3 <skill_dir>/scripts/pick_image.py --clipboard` if the user copied an image or took a screenshot (e.g., Win + Shift + S).
+   - **Direct File Path:** If the user already provided an image path, proceed directly.
+   - **Direct Text Prompt:** If the user provided a text description, proceed directly to modeling.
 
-2. **Write the Blender Python Script:**
+2. **Image Inspection & Deconstruction (When Image is Provided):**
+   - Use the `read` tool on the image path returned by `pick_image.py` or provided by user.
+   - Visually deconstruct the reference: primitive geometric meshes, proportions, color palette (RGB/Hex), surface roughness/metallicity, and sub-components.
+   - Formulate the corresponding Blender Python `bpy` script.
+
+3. **Write the Blender Python Script:**
    - Create a temporary script file (e.g., `/tmp/blender_task.py`).
    - Use standard Blender Python API (`bpy`).
-3. **Execute via Sender Tool:**
+4. **Execute via Sender Tool:**
    ```bash
    python3 ~/.pi/agent/skills/blender-bridge/scripts/send_to_blender.py --file /tmp/blender_task.py
    ```
-4. **Check Output:**
+5. **Check Output:**
    - If success: inform the user that the model is now visible in their Blender viewport.
    - If connection error: prompt the user to make sure `blender_bridge.py` is running in Blender.
 

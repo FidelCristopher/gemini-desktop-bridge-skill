@@ -55,7 +55,7 @@ Simply prompt the agent in your Pi terminal, such as *"Create a low-poly red spo
 ## Features
 
 - **Real-Time Viewport Sync:** Meshes, lights, and materials appear immediately without saving or reloading files.
-- **Image-to-3D Reference Modeling:** Provide an image path (PNG, JPG, WebP), and Gemini's multimodal vision analyzes geometry, proportions, and colors to reconstruct the 3D model in Blender.
+- **Image-to-3D Reference Modeling:** Easily insert images into the terminal via native Windows/Desktop File Picker Dialog (`pick_image.py --dialog`) or straight from your Clipboard (`pick_image.py --clipboard`, e.g. Win + Shift + S screenshot). Gemini analyzes geometry, proportions, and materials to recreate the 3D model in Blender.
 - **PBR Materials & Modifiers:** Automatically configures *Principled BSDF*, Base Color, Roughness, Metallic, Bevel, and Subdivision Surface modifiers.
 - **Direct GLB Export:** Supports exporting generated 3D scenes directly to standard `.glb` / `.gltf` binary formats.
 - **Cross-Platform & WSL2 Ready:** Seamlessly works on native Linux, macOS, native Windows, and WSL2 talking to Windows desktop.
@@ -75,7 +75,8 @@ gemini-desktop-bridge-skill/
 ├── skill/
 │   ├── SKILL.md                   # Skill prompt and instructions for Pi Agent
 │   └── scripts/
-│       └── send_to_blender.py     # Sender CLI tool (HTTP + File Watcher)
+│       ├── send_to_blender.py     # Sender CLI tool (HTTP + File Watcher)
+│       └── pick_image.py          # Native File Picker Dialog & Clipboard image tool
 └── examples/
     ├── 01_coffee_cup.py           # Example: Procedural ceramic coffee cup
     ├── 02_lowpoly_car.py          # Example: Low-poly vehicle with wheels
@@ -123,6 +124,7 @@ Interact naturally with the Pi Agent in your terminal:
 
 ## Example Prompts
 
+- *"Create a 3D model in Blender from an image"* -> The agent offers a native File Picker dialog or grabs from your clipboard.
 - *"Model this chair in Blender based on C:\Users\Pongo\Pictures\chair.png"*
 - *"Create a ceramic coffee cup with steam and a handle"*
 - *"Build a low-poly sports car with silver rims and a metallic red body"*
