@@ -168,3 +168,13 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **Layered Asset Hierarchy:** Separate beverage assets into clean functional layers (`base_glass`, `liquid_contents`, `topping_cream`) so each layer can have independent optical properties (crisp glass reflection vs milky subsurface vs matte cream).
   3. **Studio 3-Point Lighting:** Always illuminate beverage scenes with a 3-point lighting setup (Key Light, Fill Light, Rim Light) to make glass specular reflections, ice depth, and rich beverage colors pop in the viewport.
 
+### 7. Photorealistic Optical Glass & Separated Material Shaders
+- **Problem:** Multi-mesh imports often share a single generic material slot. If the glass tumbler shares the same material as the liquid/topping, the glass renders as an opaque plastic shell (`Roughness ~0.85, Transmission 0.0`), losing all transparency, Fresnel reflection, and refraction.
+- **Rule:**
+  1. **Independent Shader Assignment:** Always split materials into separate specialized shaders:
+     - **Optical Glass (`base_glass`):** Dedicated glass shader with `Transmission: 1.0`, `Roughness: 0.025`, `IOR: 1.50`, `Alpha: 0.18`, and subtle micro-condensation bump (`Strength: ~0.05`).
+     - **Creamy Liquid (`matcha_isi`):** Boost texture saturation/contrast, set `Roughness: 0.18`, and add `Subsurface Weight: 0.45` (`Subsurface Radius: (0.2, 0.5, 0.1)`) so light scatters realistically through the liquid and ice.
+     - **Velvety Topping (`matcha_topping`):** High diffuse roughness (`0.88`), low specular (`0.15`), and ultra-fine micro-grain bump (`Strength: 0.12`) for a soft powder feel.
+  2. **Enable EEVEE Real-Time Raytracing:** In Blender 5.x / 4.2+, enable `scene.eevee.use_raytracing = True`, `mat.use_raytrace_refraction = True`, and set `refraction_depth = 0.04`.
+  3. **Studio World Environment:** Provide an active ambient World background (`Strength: ~0.85`) so glass surfaces have environment light to reflect, and enable `use_scene_lights = True` and `use_scene_world = True` in 3D viewport shading.
+
