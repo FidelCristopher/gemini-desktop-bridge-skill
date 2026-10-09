@@ -192,3 +192,10 @@ This ensures that the agent permanently learns from every mistake across all fut
   2. **100% Watertight Liquid Volume:** Liquid geometry must start directly upon the inner solid glass floor ($Z = 0.24$) and fill upward to the foam line ($Z = 1.95$), matching the inner glass wall coordinates exactly.
   3. **Continuous Layering:** The cold foam layer sits directly on the liquid surface, extending upward to the top rim. This guarantees that the beverage fills 100% of the interior volume with zero holes, zero sharp edge artifacts, and realistic glass wall refraction.
 
+### 10. Hybrid Asset Synthesis (Preserving High-Fidelity Textured Assets with Outer Glass Shells)
+- **Insight:** When working with 3D models that already possess high-fidelity baked 4K textures and sculpted organic details, slicing them into disconnected layers can introduce seam gaps or destroy baked lighting.
+- **Rule:**
+  1. **Watertight Drink Core:** Keep the unified high-resolution textured asset as the internal drink core, heal any open bottom boundary scan holes, and add Subsurface Scattering (`Subsurface Weight: ~0.35`) so light penetrates the volume naturally.
+  2. **Tailored Outer Glass Shell:** Build a dedicated, contiguous revolved glass tumbler mesh enveloping the drink core. Provide a thick solid crystal bottom base extending below the drink floor and uniform wall thickness with a rounded top rim lip.
+  3. **Optical Refraction Layer:** Apply the crystal glass shader (`Transmission: 1.0`, `Roughness: 0.02`, `IOR: 1.50`, `Alpha: 0.18`, Raytrace Refraction enabled) to the outer shell. This achieves the best of both worlds: photorealistic baked 4K beverage textures inside, encased within a physically accurate, thick crystal glass tumbler that casts crisp specular highlights and refractions in real-time.
+
