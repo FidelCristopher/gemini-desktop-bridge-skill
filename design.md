@@ -401,6 +401,37 @@ This living document tracks every 3D asset designed, generated, and refined usin
     `C:\Users\Pongo\Downloads\3d-asset\chawan-matcha.glb` ($30.09\text{ MB}$).
   - Fully self-contained container with all 3 mesh nodes and 6 embedded 2K PBR image textures.
 
+---
+
+## Asset Log #10: Traditional Matcha Tea Caddy (Natsume / Tea Canister)
+**Timestamp:** 2026-10-10 16:45:00  
+**Category:** Japanese Tea Ceremony Container & Interactive Powder Source  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/matcha-natsume.png`)
+
+### 1. Geometric Architecture & Dimensions
+- **Canister Proportions:**
+  - Outer Diameter: $60.0\text{ mm}$ (Radius $30.0\text{ mm}$), Total Height: $56.0\text{ mm}$.
+  - Wide-Mouth Collar: $50.0\text{ mm}$ diameter ($R = 25.0\text{ mm}$) with rolled rim lip and threaded lid bead.
+  - Closed double-walled aluminum profile ($1.0\text{ mm}$ wall thickness) with recessed base rim.
+- **Internal Powder Bed (`Matcha_Natsume_Powder`):**
+  - Seated inside canister at $Z = 36.0\text{ mm}$ (Radius $28.7\text{ mm}$).
+  - Organic tea scoop indentation and fine powder micro-crevices.
+- **Conforming Front Label Decal (`Natsume_Front_Label`):**
+  - Cylindrical decal panel conforming to the front curvature ($R = 30.18\text{ mm}$, $Z \in [0.007, 0.035\text{ m}]$).
+  - Clean white paperboard finish displaying Japanese Kanji and 'NATSUME MATCHA' typography.
+
+### 2. Shader & PBR Material Architecture
+- **Brushed Aluminum Canister (`Natsume_Tin_PBR_Export`):** Silver-white brushed aluminum ($\text{Metallic} = 0.55$, $\text{Roughness} = 0.42$, micro-anisotropic brush bump).
+- **Matcha Powder Bed (`Natsume_Powder_PBR_Export`):** Ceremonial green velvet matte ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$, micro-powder bump $Strength = 0.08$).
+- **Front Label Decal:** Matte white paperboard ($\text{Roughness} = 0.78$, $\text{Specular} = 0.25$).
+
+### 3. Strict Single GLB Export
+- **Single GLB Packaging:**
+  - Output File: Strictly **ONE single file**:
+    `C:\Users\Pongo\Downloads\3d-asset\matcha-natsume.glb` ($3.14\text{ MB}$).
+  - Self-contained container with all 3 mesh nodes and embedded textures.
+
+
 
 
 
