@@ -421,15 +421,17 @@ This living document tracks every 3D asset designed, generated, and refined usin
   - Clean white paperboard finish displaying Japanese Kanji and 'NATSUME MATCHA' typography.
 
 ### 2. Shader & PBR Material Architecture
-- **Brushed Aluminum Canister (`Natsume_Tin_PBR_Export`):** Silver-white brushed aluminum ($\text{Metallic} = 0.55$, $\text{Roughness} = 0.42$, micro-anisotropic brush bump).
-- **Matcha Powder Bed (`Natsume_Powder_PBR_Export`):** Ceremonial green velvet matte ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$, micro-powder bump $Strength = 0.08$).
-- **Front Label Decal:** Matte white paperboard ($\text{Roughness} = 0.78$, $\text{Specular} = 0.25$).
+- **Shiny Polished Silver Exterior (`Natsume_Shiny_Silver`):** Mirror-polished silver chrome finish ($\text{Metallic} = 0.98$, $\text{Roughness} = 0.07$, $\text{Specular IOR Level} = 0.90$).
+- **Glossy Black Lacquer Interior (`Natsume_Black_Interior`):** Deep obsidian black lacquer coating the inner collar and cavity ($\text{Base Color} = (0.015, 0.015, 0.015)$, $\text{Metallic} = 0.10$, $\text{Roughness} = 0.22$, satin-gloss sheen).
+- **Matcha Powder Bed (`Natsume_Powder_Mat`):** Ceremonial green velvet matte ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$, micro-powder bump $Strength = 0.08$).
+- **Front Label Decal:** Matte white paperboard ($\text{Roughness} = 0.78$, $\text{Specular} = 0.25$) with Kanji & 'NATSUME MATCHA' typography.
 
 ### 3. Strict Single GLB Export
 - **Single GLB Packaging:**
   - Output File: Strictly **ONE single file**:
     `C:\Users\Pongo\Downloads\3d-asset\matcha-natsume.glb` ($3.14\text{ MB}$).
   - Self-contained container with all 3 mesh nodes and embedded textures.
+
 
 
 

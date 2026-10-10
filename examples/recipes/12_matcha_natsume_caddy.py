@@ -6,10 +6,11 @@ Procedural generation recipe for an authentic Japanese Matcha Tea Canister
 (C:\\Users\\Pongo\\Downloads\\3d-asset\\matcha-natsume.glb)
 
 Key Architectural & Technical Features:
-1. Revolved Brushed Aluminum Canister Geometry:
+1. Revolved Tin Canister Geometry with Dual-Material Slots:
+   - Outer Body: Mirror-polished shiny chrome/silver aluminum (Metallic 0.98, Roughness 0.07)
+   - Inner Wall & Cavity: Satin obsidian black lacquer (Roughness 0.22, Specular 0.60)
    - Body Diameter: 60 mm (radius 30.0 mm), Height: 56 mm
    - Wide-Mouth Collar: 50 mm diameter with rolled rim lip & thread bead
-   - Closed double-walled profile (1.0 mm thickness) with recessed base rim
 2. Internal Ceremonial Matcha Powder Bed (Matcha_Natsume_Powder):
    - Fluffy undulating tea powder surface at Z = 36 mm (radius 28.7 mm)
    - Gentle natural scoop indentations & fine micro-crevices
@@ -18,8 +19,8 @@ Key Architectural & Technical Features:
    - Conforming cylindrical decal panel with clean white paperboard finish
    - Japanese Kanji & 'NATSUME MATCHA' typography
 4. Strict Single GLB Container:
-   - Output File: C:\\Users\\Pongo\\Downloads\\3d-asset\\matcha-natsume.glb (3.14 MB)
-   - All 3 mesh nodes and embedded textures fully self-contained.
+   - Output File: C:\\Users\\Pongo\\Downloads\\3d-asset\\matcha-natsume.glb
+   - Self-contained container with all 3 mesh nodes and embedded textures.
 """
 
 import bpy
@@ -106,6 +107,37 @@ def create_and_export_natsume_caddy(export_path=r"C:\Users\Pongo\Downloads\3d-as
     sub.levels = 1
     sub.render_levels = 2
 
+    # Material 0: Shiny Polished Silver
+    mat_silver = bpy.data.materials.new("Natsume_Shiny_Silver")
+    mat_silver.use_nodes = True
+    bsdf_s = mat_silver.node_tree.nodes.get("Principled BSDF")
+    bsdf_s.inputs["Base Color"].default_value = (0.94, 0.96, 0.98, 1.0)
+    bsdf_s.inputs["Metallic"].default_value = 0.98
+    bsdf_s.inputs["Roughness"].default_value = 0.07
+    bsdf_s.inputs["Specular IOR Level"].default_value = 0.90
+
+    # Material 1: Glossy Black Interior
+    mat_black = bpy.data.materials.new("Natsume_Black_Interior")
+    mat_black.use_nodes = True
+    bsdf_b = mat_black.node_tree.nodes.get("Principled BSDF")
+    bsdf_b.inputs["Base Color"].default_value = (0.015, 0.015, 0.015, 1.0)
+    bsdf_b.inputs["Metallic"].default_value = 0.10
+    bsdf_b.inputs["Roughness"].default_value = 0.22
+
+    tin_obj.data.materials.append(mat_silver)
+    tin_obj.data.materials.append(mat_black)
+
+    # Assign materials based on geometry:
+    for p in mesh_tin.polygons:
+        cz = sum(mesh_tin.vertices[v].co.z for v in p.vertices) / len(p.vertices)
+        cr = sum((mesh_tin.vertices[v].co.x**2 + mesh_tin.vertices[v].co.y**2)**0.5 for v in p.vertices) / len(p.vertices)
+        if cz >= 0.042 and cr <= 0.0256:
+            p.material_index = 1 # Black inner collar
+        elif cz < 0.040 and cr < 0.029:
+            p.material_index = 1 # Black inner cavity
+        else:
+            p.material_index = 0 # Shiny silver exterior
+
     # 3. Create Powder Bed
     mesh_p = bpy.data.meshes.new("Natsume_Powder_Mesh")
     powder_obj = bpy.data.objects.new("Matcha_Natsume_Powder", mesh_p)
@@ -157,6 +189,14 @@ def create_and_export_natsume_caddy(export_path=r"C:\Users\Pongo\Downloads\3d-as
     powder_obj.parent = tin_obj
     powder_obj.matrix_local = mathutils.Matrix.Identity(4)
 
+    # Powder Material
+    mat_pwd = bpy.data.materials.new("Natsume_Powder_Mat")
+    mat_pwd.use_nodes = True
+    bsdf_p = mat_pwd.node_tree.nodes.get("Principled BSDF")
+    bsdf_p.inputs["Base Color"].default_value = (0.024, 0.088, 0.016, 1.0)
+    bsdf_p.inputs["Roughness"].default_value = 0.92
+    powder_obj.data.materials.append(mat_pwd)
+
     # 4. Create Curved Front Label Decal
     R_LABEL = 0.03018
     Z_BOT = 0.007
@@ -202,6 +242,19 @@ def create_and_export_natsume_caddy(export_path=r"C:\Users\Pongo\Downloads\3d-as
 
     label_obj.parent = tin_obj
     label_obj.matrix_local = mathutils.Matrix.Identity(4)
+
+    # Label Material
+    img = bpy.data.images.load(r'C:\Users\Pongo\Downloads\matcha-natsume.png')
+    mat_lbl = bpy.data.materials.new("Natsume_Label_Mat")
+    mat_lbl.use_nodes = True
+    l_nodes = mat_lbl.node_tree.nodes
+    l_links = mat_lbl.node_tree.links
+    bsdf_l = l_nodes.get("Principled BSDF")
+    bsdf_l.inputs["Roughness"].default_value = 0.78
+    tex_l = l_nodes.new('ShaderNodeTexImage')
+    tex_l.image = img
+    l_links.new(tex_l.outputs["Color"], bsdf_l.inputs["Base Color"])
+    label_obj.data.materials.append(mat_lbl)
 
     # Export strictly ONE GLB
     bpy.ops.object.select_all(action='DESELECT')
