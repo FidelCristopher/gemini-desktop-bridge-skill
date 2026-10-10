@@ -296,6 +296,44 @@ This living document tracks every 3D asset designed, generated, and refined usin
     `C:\Users\Pongo\Downloads\carton-milk.glb` ($2.62\text{ MB}$).
   - Fully self-contained glTF 2.0 binary containing 3 embedded 2K PBR image textures and applied geometry.
 
+---
+
+## Asset Log #07: Single Master Ice Cube (Drag & Drop / Instancing Ready)
+**Timestamp:** 2026-10-10 07:30:00  
+**Category:** Beverage Ice Prop & Physics Interactive Asset  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/ice-cube.png`)
+
+### 1. Geometric Architecture & Physics Optimization
+- **Physical Proportions:**
+  - Dimensions: $28.0\text{ mm} \times 28.0\text{ mm} \times 28.0\text{ mm}$ ($0.028\text{ m} \times 0.028\text{ m} \times 0.028\text{ m}$) canonical beverage cube.
+  - Center of Mass Origin: Exact $(0.0, 0.0, 0.0)$ pivot for accurate cursor drag-and-drop anchoring, bounding-box raycasting, and rigid-body physics simulation.
+- **Melted Rounded Bevels & Surface Tension:**
+  - $2.4\text{ mm}$ rounded edge bevel (`Bevel` segments 4) + Subdivision Surface Level 2.
+  - Organic melted surface tension and subtle face-center freeze suction.
+- **WebGL / Game Engine Instancing:**
+  - Single canonical mesh designed for zero-overhead GPU instancing (`THREE.InstancedMesh`) across dozens of ice cubes in a glass.
+
+### 2. Physical Ice PBR Optical Shader
+- **Material Identity:** `Crystal_Ice_Master` / `Crystal_Ice_PBR_Export`
+- **Optical Parameters:**
+  - Refractive Index: $\text{IOR} = 1.310$ (physical water ice).
+  - High-Gloss Wet Sheen: $\text{Roughness} \approx 0.02$, $\text{Specular IOR Level} = 0.95$.
+- **Inclusions & Color Gradients:**
+  - Trapped Micro-Bubbles: 3D Voronoi inclusion network ($Scale = 110.0$) producing crisp white frozen micro-bubble clusters.
+  - Arctic Refraction Rim: Layer Weight Fresnel network mapping grazing angles to arctic cyan/slate blue refraction borders (`RGB: 0.16, 0.42, 0.70`) and facing angles to crystal clear transparency.
+  - Surface Condensation: Tangent normal bump mapping ($Strength = 0.035$) simulating melted water droplet beads.
+
+### 3. Automated 2K Texture Baking & Strict Single GLB Export
+- **2K Texture Baking (2048 x 2048):**
+  - `Ice_BaseColor.png` (2048 x 2048 PNG): Baked arctic blue refraction rims and white micro-bubble inclusions.
+  - `Ice_Roughness.png` (2048 x 2048 PNG, Non-Color): High-gloss wet ice response ($0.02$).
+  - `Ice_Normal.png` (2048 x 2048 PNG Tangent Space, Non-Color): Rounded edge curvature and water droplet beads.
+- **Strict Single GLB Output:**
+  - Output File: Strictly **ONE single file**:
+    `C:\Users\Pongo\Downloads\ice-cube.glb` ($0.42\text{ MB}$).
+  - Universal real-time AR, WebGL, Three.js, and Game Engine compatibility.
+
+
 
 
 

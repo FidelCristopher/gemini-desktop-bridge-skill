@@ -92,7 +92,9 @@ gemini-desktop-bridge-skill/
         ├── 05_thermoformed_pet_plastic_cup.py  # Verified Recipe: High-precision thermoformed disposable PET plastic cup
         ├── 06_katakuchi_matcha_chawan.py       # Verified Recipe: Traditional Katakuchi Matcha Chawan with dual glaze & Kuro-ten spots
         ├── 07_japanese_bamboo_chashaku.py      # Verified Recipe: Authentic Bamboo Chashaku with 2K PBR texture baking
-        └── 08_gable_top_milk_carton.py         # Verified Recipe: Gable-Top Milk Carton with open pouring spout & 2K PBR bake
+        ├── 08_gable_top_milk_carton.py         # Verified Recipe: Gable-Top Milk Carton with open pouring spout & 2K PBR bake
+        └── 09_single_master_ice_cube.py        # Verified Recipe: Single Master Ice Cube optimized for Drag & Drop / Instancing
+
 
 
 
