@@ -432,6 +432,39 @@ This living document tracks every 3D asset designed, generated, and refined usin
     `C:\Users\Pongo\Downloads\3d-asset\matcha-natsume.glb` ($3.14\text{ MB}$).
   - Self-contained container with all 3 mesh nodes and embedded textures.
 
+---
+
+## Asset Log #11: Authentic Black Urushi Lacquer Natsume with Gold Kin-Maki-e Crests
+**Timestamp:** 2026-10-10 18:45:00  
+**Category:** Japanese Tea Ceremony Utensil & Authentic Lacquerware Container  
+**Source:** Reference Image (`C:\Users\Pongo\Downloads\natsume-matcha(2).jpeg`)
+
+### 1. Geometric Architecture & Presentation Staging
+- **Classic Chu-Natsume (Medium Jujube) Silhouette:**
+  - Swelling belly diameter: $66.0\text{ mm}$ ($R = 33.0\text{ mm}$), Total body height: $46.5\text{ mm}$.
+  - Wide open mouth: $60.0\text{ mm}$ diameter ($R = 30.0\text{ mm}$) with stepped collar lip.
+  - Closed double-walled profile with recessed foot ring.
+- **Detached Dome Lid (`Matcha_Natsume_Lid`):**
+  - Classic hemispherical domed lid resting tilted beside the caddy ($66.0\text{ mm}$ diameter).
+- **Internal Powder Bed (`Matcha_Natsume_Powder`):**
+  - Powder bed surface at $Z = 32.0\text{ mm}$ with organic scoop indentations.
+
+### 2. Shader & PBR Material Architecture
+- **Ro-iro Kuro-Urushi (Black Mirror Lacquer):**
+  - Deep obsidian black lacquer: $\text{Base Color} = (0.008, 0.008, 0.008)$, $\text{Roughness} = 0.045$, $\text{Specular IOR Level} = 0.85$, Clearcoat $\text{Weight} = 0.80$.
+- **Kin-Maki-e (Gold Dust Floral Crests):**
+  - Authentic Hanabishi (four-lobed flower) crest and pine needle accents extracted directly from reference photo `natsume-matcha(2).jpeg`.
+  - Radiant Japanese gold leaf/powder: $\text{Base Color} = (0.92, 0.76, 0.38)$, $\text{Metallic} = 0.98$, $\text{Roughness} = 0.22$, tactile raised normal bump ($Strength = 0.055$).
+- **No Text / Label:** The modern paper label and "Natsume" text have been completely removed.
+- **Powder Bed:** Ceremonial green velvet matte ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$).
+
+### 3. Strict Single GLB Export
+- **Single GLB Packaging:**
+  - Output File: Strictly **ONE single file**:
+    `C:\Users\Pongo\Downloads\3d-asset\matcha-natsume.glb` ($1.93\text{ MB}$).
+  - Self-contained container with all 3 mesh nodes (`Matcha_Natsume_Tin`, `Matcha_Natsume_Powder`, `Matcha_Natsume_Lid`) and embedded textures.
+
+
 
 
 

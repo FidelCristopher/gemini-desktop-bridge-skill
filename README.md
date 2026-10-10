@@ -96,7 +96,9 @@ gemini-desktop-bridge-skill/
         ├── 09_single_master_ice_cube.py        # Verified Recipe: Single Master Ice Cube optimized for Drag & Drop / Instancing
         ├── 10_chashaku_matcha_scoop_pack.py    # Verified Recipe: Interactive Phase 1 Chashaku + Modular Matcha Powder Scoop Pack
         ├── 11_chawan_matcha_powder_piles_pack.py # Verified Recipe: Interactive Phase 2 Chawan + Hidden Multi-Scoop Matcha Powder Piles
-        └── 12_matcha_natsume_caddy.py          # Verified Recipe: Traditional Matcha Tea Caddy (Natsume) with Powder Bed & Label
+        ├── 12_matcha_natsume_caddy.py          # Verified Recipe: Traditional Matcha Tea Caddy (Natsume) with Powder Bed & Label
+        └── 13_traditional_urushi_natsume_caddy.py # Verified Recipe: Authentic Black Urushi Lacquer Natsume with Gold Maki-e Crest
+
 
 
 
