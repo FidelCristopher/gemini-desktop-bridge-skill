@@ -93,7 +93,9 @@ gemini-desktop-bridge-skill/
         ├── 06_katakuchi_matcha_chawan.py       # Verified Recipe: Traditional Katakuchi Matcha Chawan with dual glaze & Kuro-ten spots
         ├── 07_japanese_bamboo_chashaku.py      # Verified Recipe: Authentic Bamboo Chashaku with 2K PBR texture baking
         ├── 08_gable_top_milk_carton.py         # Verified Recipe: Gable-Top Milk Carton with open pouring spout & 2K PBR bake
-        └── 09_single_master_ice_cube.py        # Verified Recipe: Single Master Ice Cube optimized for Drag & Drop / Instancing
+        ├── 09_single_master_ice_cube.py        # Verified Recipe: Single Master Ice Cube optimized for Drag & Drop / Instancing
+        └── 10_chashaku_matcha_scoop_pack.py    # Verified Recipe: Interactive Phase 1 Chashaku + Modular Matcha Powder Scoop Pack
+
 
 
 

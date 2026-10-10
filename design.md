@@ -333,6 +333,40 @@ This living document tracks every 3D asset designed, generated, and refined usin
     `C:\Users\Pongo\Downloads\ice-cube.glb` ($0.42\text{ MB}$).
   - Universal real-time AR, WebGL, Three.js, and Game Engine compatibility.
 
+---
+
+## Asset Log #08: Phase 1 Interactive Chashaku + Modular Matcha Powder Scoop Pack
+**Timestamp:** 2026-10-10 08:35:00  
+**Category:** Japanese Tea Ceremony Utensil & Interactive Powder Prop  
+**Source:** Reference Image (`/mnt/c/Users/Pongo/Downloads/gundukan-matcha.png`) + Chashaku (`C:\Users\Pongo\Downloads\chashaku.glb`)
+
+### 1. Hierarchical Architecture & Interaction Optimization
+- **Dual-Node Hierarchical Structure:**
+  - **Parent Node (`Bamboo_Chashaku`):** Canonical split-culm bamboo spoon geometry with authentic curved head, node (*fushi*), and handle butt (*kitte*).
+  - **Child Node (`Matcha_Scoop_Heap`):** High-density sculpted ceremonial green tea powder mound seated securely within the concave cradle of the spoon head ($Y \in [0.063, 0.088\text{ m}]$, peak height $\approx 5.0\text{ mm}$, volume $\approx 1.8\text{ g}$).
+- **Interactive WebGL / Game Engine Implementation:**
+  - The powder mound is attached as an independent child node. In Three.js / React Three Fiber / WebGL:
+    * Unscooped State: `chashaku.getObjectByName("Matcha_Scoop_Heap").scale.set(0, 0, 0)` (empty spoon).
+    * Scooping Animation: Tweening scale from `0 -> 1` when dipping into tea canister (*natsume*).
+    * Deposition into Chawan: Scale shrinks `1 -> 0` as the Chashaku is tapped on the rim of the matcha bowl.
+
+### 2. Shader & PBR Material Architecture
+- **Bamboo Spoon (`Bamboo_Chashaku_PBR_Export`):** Hand-carved satin honey bamboo finish ($\text{Roughness} \approx 0.36$, $\text{Specular} = 0.50$, longitudinal fiber grain).
+- **Matcha Powder (`Matcha_Heap_PBR_Export`):**
+  - Ceremonial Grade Velvet Matte: Absorbent tea dust response ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$, subtle subsurface scattering warmth).
+  - Micro-Grain & Clump Relief: Multi-octave 3D noise network ($Scale = 280.0$) with organic angle-of-repose creases and normal bump relief ($Strength = 0.65$).
+  - Palette: Deep forest shadow (`RGB: 0.016, 0.065, 0.010`) to spring jade crest (`RGB: 0.038, 0.125, 0.024`).
+
+### 3. Automated 2K PBR Texture Baking & Single GLB Export
+- **Embedded 2K PBR Textures (2048 x 2048):**
+  - Chashaku: `Chashaku_BaseColor.png`, `Chashaku_Roughness.png`, `Chashaku_Normal.png`.
+  - Matcha Heap: `Matcha_Heap_BaseColor.png`, `Matcha_Heap_Roughness.png`, `Matcha_Heap_Normal.png`.
+- **Strict Single GLB Packaging:**
+  - Output File: Strictly **ONE single file**:
+    `C:\Users\Pongo\Downloads\chashaku.glb` ($7.61\text{ MB}$).
+  - Both nodes, their parent-child transform hierarchy, and all 6 embedded 2K PBR image textures are fully self-contained.
+
+
 
 
 
