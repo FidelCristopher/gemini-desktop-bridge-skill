@@ -366,6 +366,42 @@ This living document tracks every 3D asset designed, generated, and refined usin
     `C:\Users\Pongo\Downloads\chashaku.glb` ($7.61\text{ MB}$).
   - Both nodes, their parent-child transform hierarchy, and all 6 embedded 2K PBR image textures are fully self-contained.
 
+---
+
+## Asset Log #09: Phase 2 Interactive Katakuchi Chawan + Hidden Multi-Scoop Matcha Powder Piles
+**Timestamp:** 2026-10-10 10:30:00  
+**Category:** Japanese Tea Ceremony Utensil & Interactive Powder Simulation  
+**Source:** Chawan GLB (`C:\Users\Pongo\Downloads\3d-asset\chawan-matcha.glb`) + Procedural Ceremonial Matcha
+
+### 1. Hierarchical Architecture & Multi-Scoop Drag & Drop Optimization
+- **Parent-Child Node Hierarchy:**
+  - **Parent Node (`Katakuchi_Chawan`):** Canonical spouted ceramic matcha bowl with dual-glaze mapping, Hidasuki rim, Kuro-ten iron spots, and terracotta exterior.
+  - **Child Node 1 (`Matcha_Chawan_Pile_1`):** First scoop mound seated in center-left tea pool (*chadamari*) (Radius $\approx 16.5\text{ mm}$, Peak height $\approx 8.5\text{ mm}$, volume $\approx 1.8\text{ g}$).
+  - **Child Node 2 (`Matcha_Chawan_Pile_2`):** Second scoop mound overlapping cluster (Radius $\approx 15.0\text{ mm}$, Peak height $\approx 7.8\text{ mm}$, volume $\approx 1.6\text{ g}$).
+- **Initial Clean State Enforcement:**
+  - As strictly required, the Chawan starts completely clean and empty (`scale = (0.0001, 0.0001, 0.0001)` on both pile child nodes).
+  - WebGL / Three.js Interaction Lifecycle:
+    * Initial State: Both piles hidden (`scale.set(0, 0, 0)`).
+    * Chashaku Scoop 1 Tap: Animate `pile1.scale` from `0 -> 1` as Chashaku drops first scoop.
+    * Chashaku Scoop 2 Tap: Animate `pile2.scale` from `0 -> 1` as Chashaku deposits second scoop.
+
+### 2. Shader & PBR Material Architecture
+- **Ceramic Chawan (`Katakuchi_Ceramic_PBR`):** 2K PBR toasted caramel glaze, iron oxide flecks, and matte terracotta body.
+- **Matcha Powder Piles (`Chawan_Powder_PBR_Export`):**
+  - Ceremonial Grade Velvet Matte: Absorbent tea dust response ($\text{Roughness} = 0.92$, $\text{Specular} = 0.08$, subsurface scattering warmth).
+  - Micro-Grain & Clump Relief: Multi-octave 3D noise network ($Scale = 280.0$) with organic angle-of-repose creases and normal bump relief ($Strength = 0.65$).
+  - Palette: Deep forest shadow (`RGB: 0.016, 0.065, 0.010`) to spring jade crest (`RGB: 0.038, 0.125, 0.024`).
+
+### 3. Automated 2K PBR Texture Baking & Single GLB Export
+- **Embedded 2K PBR Textures (2048 x 2048):**
+  - Chawan: `Chawan_BaseColor.png`, `Chawan_Roughness.png`, `Chawan_Normal.png`.
+  - Powder Piles: `Chawan_Powder_BaseColor.png`, `Chawan_Powder_Roughness.png`, `Chawan_Powder_Normal.png`.
+- **Strict Single GLB Packaging:**
+  - Output File: Strictly **ONE single file**:
+    `C:\Users\Pongo\Downloads\3d-asset\chawan-matcha.glb` ($30.09\text{ MB}$).
+  - Fully self-contained container with all 3 mesh nodes and 6 embedded 2K PBR image textures.
+
+
 
 
 
